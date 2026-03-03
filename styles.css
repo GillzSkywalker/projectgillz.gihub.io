@@ -1,0 +1,193 @@
+/* Global resets */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Comic Neue', cursive;
+  scroll-behavior: smooth;
+  background: #fffbe6; /* light paper tone */
+  color: #333;
+}
+
+/* Header & navigation */
+header {
+  background: #333;
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+  }
+  .nav-links {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #444;
+    display: none;
+  }
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* stack about section on small screens */
+  .about {
+    flex-direction: column;
+    text-align: center;
+  }
+  .about-text {
+    order: 2;
+  }
+  .profile-pic {
+    order: 1;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Hero section */
+.hero {
+  background: url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat, #ffebcc;
+  padding: 100px 1rem 2rem;
+  text-align: center;
+  margin-top: 60px; /* height of fixed header */
+  border-bottom: 4px solid #000;
+}
+
+/* Section styling */
+section {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* About section with profile image */
+.about {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.about-text {
+  flex: 1;
+  min-width: 250px;
+}
+
+.profile-pic {
+  max-width: 200px;
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Projects grid */
+.projects .project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.project-card {
+  border: 3px dashed #000;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff;
+  position: relative;
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 2px solid #000;
+  pointer-events: none;
+}
+
+/* Contact form */
+.contact form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 3px dashed #000;
+  padding: 1rem;
+  background: #fff;
+}
+.contact form::before {
+  content: '✉️';
+  position: absolute;
+  top: -15px;
+  left: 15px;
+  font-size: 2rem;
+}
+
+.contact input,
+.contact textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.contact button {
+  width: 100px;
+  padding: 0.5rem;
+  border: none;
+  background: #333;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  border-top: 4px solid #000;
+}
