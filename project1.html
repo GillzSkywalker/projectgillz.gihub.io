@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Archive // GillzSkywalker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    /* ─── TOKENS ─── */
+    :root {
+      --void:        #020409;
+      --deep:        #050d1a;
+      --nebula-blue: #0a1628;
+      --star-white:  #e8f4ff;
+      --cyan:        #00d4ff;
+      --cyan-dim:    rgba(0,212,255,0.12);
+      --cyan-glow:   rgba(0,212,255,0.4);
+      --magenta:     #ff2d78;
+      --mag-dim:     rgba(255,45,120,0.12);
+      --gold:        #ffd166;
+      --text-body:   #a8c8e8;
+      --grid-line:   rgba(0,212,255,0.055);
+      --card-bg:     rgba(10,22,40,0.75);
+      --border-dim:  rgba(0,212,255,0.13);
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Exo 2', sans-serif;
+      background: var(--void);
+      color: var(--star-white);
+      overflow-x: hidden;
+      cursor: none;
+      min-height: 100vh;
+    }
+
+    /* ─── CURSOR ─── */
+    .cursor {
+      width:12px; height:12px;
+      border:1.5px solid var(--cyan); border-radius:50%;
+      position:fixed; pointer-events:none;
+      transform:translate(-50%,-50%);
+      transition:width .2s,height .2s,background .2s;
+      z-index:10000; mix-blend-mode:screen;
+    }
+    .cursor-ring {
+      width:36px; height:36px;
+      border:1px solid rgba(0,212,255,.4); border-radius:50%;
+      position:fixed; pointer-events:none;
+      transform:translate(-50%,-50%);
+      transition:width .3s,height .3s;
+      z-index:9999;
+    }
+
+    /* ─── STARFIELD ─── */
+    #starfield {
+      position:fixed; inset:0;
+      width:100%; height:100%;
+      z-index:0; pointer-events:none;
+    }
+
+    /* ─── GRID ─── */
+    body::before {
+      content:'';
+      position:fixed; inset:0;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size:60px 60px;
+      z-index:1; pointer-events:none;
+    }
+
+    /* ─── NAV ─── */
+    header {
+      position:fixed; top:0; width:100%;
+      z-index:1000;
+      backdrop-filter:blur(18px);
+      background:rgba(2,4,9,.75);
+      border-bottom:1px solid rgba(0,212,255,.1);
+    }
+    .navbar {
+      max-width:1300px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 2rem; height:64px;
+    }
+    .brand {
+      font-family:'Orbitron', monospace;
+      font-size:1.1rem; font-weight:900; letter-spacing:.25em;
+      color:var(--cyan);
+      text-shadow:0 0 20px var(--cyan-glow);
+      text-decoration:none;
+    }
+    .brand::after { content:'_'; animation:blink 1s step-end infinite; color:var(--magenta); }
+    @keyframes blink { 50%{opacity:0} }
+
+    .nav-links { display:flex; list-style:none; gap:2.5rem; }
+    .nav-links a {
+      font-family:'Orbitron', monospace;
+      font-size:.6rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--text-body); text-decoration:none;
+      transition:color .3s;
+      position:relative;
+    }
+    .nav-links a::before { content:'> '; color:var(--cyan); opacity:0; transition:opacity .2s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--cyan); }
+    .nav-links a:hover::before, .nav-links a.active::before { opacity:1; }
+    .nav-links a.active { text-shadow:0 0 12px var(--cyan-glow); }
+
+    .nav-toggle {
+      display:none;
+      background:none; border:1px solid var(--cyan);
+      color:var(--cyan); padding:.3rem .6rem;
+      font-size:1.1rem; cursor:none;
+      font-family:'Orbitron', monospace;
+    }
+
+    /* ─── SECTIONS ─── */
+    section, .section-wrap { position:relative; z-index:2; }
+
+    /* ─── HERO ─── */
+    .hero-section {
+      min-height:72vh;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      text-align:center;
+      padding:8rem 2rem 4rem;
+      overflow:hidden;
+    }
+
+    .hero-eyebrow {
+      font-family:'Orbitron', monospace;
+      font-size:.6rem; letter-spacing:.45em; text-transform:uppercase;
+      color:var(--magenta); margin-bottom:1.2rem;
+      opacity:0; animation:fadeUp .8s .2s forwards;
+    }
+
+    .hero-title {
+      font-family:'Orbitron', monospace;
+      font-size:clamp(2.4rem, 6vw, 5.5rem);
+      font-weight:900; letter-spacing:.04em; line-height:1.05;
+      background:linear-gradient(135deg, var(--star-white) 0%, var(--cyan) 55%, var(--magenta) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+      filter:drop-shadow(0 0 40px rgba(0,212,255,.22));
+      opacity:0; animation:fadeUp .9s .4s forwards;
+    }
+
+    .hero-sub {
+      margin-top:1.4rem;
+      font-size:.95rem; font-weight:300; font-style:italic;
+      color:var(--text-body); letter-spacing:.07em; max-width:540px;
+      opacity:0; animation:fadeUp .9s .6s forwards;
+    }
+
+    .hero-tags {
+      display:flex; gap:.7rem; flex-wrap:wrap;
+      justify-content:center; margin-top:2.2rem;
+      opacity:0; animation:fadeUp .9s .8s forwards;
+    }
+    .tag {
+      font-family:'Orbitron', monospace;
+      font-size:.55rem; letter-spacing:.13em; text-transform:uppercase;
+      padding:.38rem 1rem;
+      border:1px solid rgba(0,212,255,.28);
+      color:var(--cyan); background:var(--cyan-dim);
+      clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+    }
+    .tag.mag {
+      border-color:rgba(255,45,120,.28);
+      color:var(--magenta); background:var(--mag-dim);
+    }
+
+    /* Decorative corner brackets */
+    .hero-bracket {
+      position:absolute;
+      width:60px; height:60px;
+      opacity:.25; pointer-events:none;
+    }
+    .hero-bracket-tl { top:5rem; left:3rem; border-top:1px solid var(--cyan); border-left:1px solid var(--cyan); }
+    .hero-bracket-tr { top:5rem; right:3rem; border-top:1px solid var(--cyan); border-right:1px solid var(--cyan); }
+    .hero-bracket-bl { bottom:2rem; left:3rem; border-bottom:1px solid var(--magenta); border-left:1px solid var(--magenta); }
+    .hero-bracket-br { bottom:2rem; right:3rem; border-bottom:1px solid var(--magenta); border-right:1px solid var(--magenta); }
+
+    @keyframes fadeUp {
+      from{opacity:0;transform:translateY(28px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    /* ─── SECTION DIVIDER ─── */
+    .section-divider {
+      display:flex; align-items:center; gap:1rem;
+      max-width:1300px; margin:0 auto;
+      padding:0 2rem; position:relative; z-index:2;
+    }
+    .section-divider::before, .section-divider::after {
+      content:''; flex:1; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(0,212,255,.28), transparent);
+    }
+    .section-divider span {
+      font-family:'Orbitron', monospace;
+      font-size:.5rem; letter-spacing:.3em; text-transform:uppercase;
+      color:rgba(0,212,255,.4); white-space:nowrap;
+    }
+
+    /* ─── ABOUT STRIP ─── */
+    .about-strip {
+      max-width:1300px; margin:0 auto;
+      padding:4rem 2rem;
+      display:flex; gap:3rem; align-items:center;
+      flex-wrap:wrap;
+    }
+    .about-strip p {
+      flex:1; min-width:280px;
+      font-size:.9rem; line-height:1.9; color:var(--text-body); font-weight:300;
+    }
+    .stat-row {
+      display:flex; gap:2rem; flex-wrap:wrap;
+    }
+    .stat-box {
+      background:var(--card-bg);
+      border:1px solid var(--border-dim);
+      padding:1.2rem 1.8rem; text-align:center;
+      clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
+    }
+    .stat-num {
+      font-family:'Orbitron', monospace;
+      font-size:1.8rem; font-weight:900; color:var(--cyan);
+      text-shadow:0 0 20px var(--cyan-glow); display:block;
+    }
+    .stat-label {
+      font-family:'Orbitron', monospace;
+      font-size:.5rem; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--text-body); margin-top:.2rem;
+    }
+
+    /* ─── FILTER BAR ─── */
+    .filter-wrap {
+      max-width:1300px; margin:0 auto;
+      padding:0 2rem 2.5rem;
+      display:flex; gap:.6rem; flex-wrap:wrap; align-items:center;
+      position:relative; z-index:2;
+    }
+    .filter-label {
+      font-family:'Orbitron', monospace;
+      font-size:.55rem; letter-spacing:.25em; text-transform:uppercase;
+      color:rgba(0,212,255,.4); margin-right:.4rem;
+    }
+    .filter-btn {
+      font-family:'Orbitron', monospace;
+      font-size:.55rem; letter-spacing:.13em; text-transform:uppercase;
+      padding:.35rem .9rem;
+      border:1px solid rgba(0,212,255,.2);
+      color:var(--text-body); background:transparent;
+      cursor:none; transition:all .25s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      border-color:var(--cyan);
+      color:var(--cyan); background:var(--cyan-dim);
+      box-shadow:0 0 14px rgba(0,212,255,.15);
+    }
+
+    /* ─── PROJECT GRID ─── */
+    .projects-wrap {
+      max-width:1300px; margin:0 auto;
+      padding:0 2rem 7rem;
+      position:relative; z-index:2;
+    }
+
+    .project-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));
+      gap:1.4rem;
+    }
+
+    /* ─── PROJECT CARD ─── */
+    .project-card {
+      background:var(--card-bg);
+      border:1px solid var(--border-dim);
+      position:relative; overflow:hidden;
+      display:flex; flex-direction:column;
+      transition:border-color .35s, transform .35s, box-shadow .35s;
+    }
+    .project-card::before {
+      content:'';
+      position:absolute; top:0; left:0;
+      width:100%; height:2px;
+      background:linear-gradient(90deg, var(--cyan), var(--magenta));
+      opacity:0; transition:opacity .35s;
+    }
+    .project-card:hover {
+      border-color:rgba(0,212,255,.35);
+      transform:translateY(-5px);
+      box-shadow:0 20px 60px rgba(0,0,0,.4), 0 0 40px rgba(0,212,255,.07);
+    }
+    .project-card:hover::before { opacity:1; }
+
+    /* Card image placeholder */
+    .card-visual {
+      width:100%; height:180px;
+      position:relative; overflow:hidden;
+      background:var(--deep);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .card-visual-bg {
+      position:absolute; inset:0;
+      opacity:.5;
+      transition:opacity .4s, transform .4s;
+    }
+    .project-card:hover .card-visual-bg { opacity:.8; transform:scale(1.04); }
+
+    /* Gradient variants */
+    .vis-1 .card-visual-bg { background:radial-gradient(ellipse at 30% 60%, rgba(0,212,255,.25) 0%, transparent 65%), radial-gradient(ellipse at 80% 20%, rgba(255,45,120,.15) 0%, transparent 60%); }
+    .vis-2 .card-visual-bg { background:radial-gradient(ellipse at 70% 50%, rgba(255,209,102,.2) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(0,212,255,.12) 0%, transparent 55%); }
+    .vis-3 .card-visual-bg { background:radial-gradient(ellipse at 50% 30%, rgba(255,45,120,.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(0,212,255,.1) 0%, transparent 55%); }
+    .vis-4 .card-visual-bg { background:radial-gradient(ellipse at 20% 40%, rgba(0,212,255,.2) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(255,209,102,.15) 0%, transparent 55%); }
+
+    .card-visual-icon {
+      font-size:2.5rem; position:relative; z-index:1;
+      filter:drop-shadow(0 0 16px var(--cyan));
+    }
+    .card-visual-num {
+      position:absolute; bottom:.6rem; right:.8rem;
+      font-family:'Orbitron', monospace;
+      font-size:3rem; font-weight:900;
+      color:rgba(255,255,255,.04); line-height:1;
+      pointer-events:none;
+    }
+
+    /* Status badge */
+    .card-status {
+      position:absolute; top:.8rem; left:.8rem;
+      font-family:'Orbitron', monospace;
+      font-size:.5rem; letter-spacing:.15em; text-transform:uppercase;
+      padding:.25rem .7rem;
+      border:1px solid;
+      backdrop-filter:blur(8px);
+    }
+    .status-live   { color:#39ff88; border-color:rgba(57,255,136,.4); background:rgba(57,255,136,.08); }
+    .status-wip    { color:var(--gold); border-color:rgba(255,209,102,.4); background:rgba(255,209,102,.08); }
+    .status-concept{ color:var(--text-body); border-color:rgba(168,200,232,.2); background:rgba(168,200,232,.05); }
+
+    .card-body { padding:1.6rem; flex:1; display:flex; flex-direction:column; }
+
+    .card-category {
+      font-family:'Orbitron', monospace;
+      font-size:.5rem; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--magenta); margin-bottom:.6rem;
+    }
+
+    .card-title {
+      font-family:'Orbitron', monospace;
+      font-size:.9rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+      color:var(--star-white); margin-bottom:.8rem; line-height:1.3;
+    }
+
+    .card-desc {
+      font-size:.85rem; color:var(--text-body);
+      line-height:1.75; font-weight:300; flex:1;
+    }
+
+    .card-tech {
+      display:flex; gap:.4rem; flex-wrap:wrap; margin-top:1.2rem;
+    }
+    .tech-chip {
+      font-family:'Orbitron', monospace;
+      font-size:.48rem; letter-spacing:.1em; text-transform:uppercase;
+      padding:.22rem .6rem;
+      border:1px solid rgba(0,212,255,.2);
+      color:rgba(0,212,255,.7); background:rgba(0,212,255,.05);
+    }
+    .tech-chip.gold {
+      border-color:rgba(255,209,102,.2);
+      color:rgba(255,209,102,.7); background:rgba(255,209,102,.05);
+    }
+
+    .card-footer {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-top:1.4rem; padding-top:1rem;
+      border-top:1px solid rgba(0,212,255,.08);
+    }
+    .card-link {
+      font-family:'Orbitron', monospace;
+      font-size:.55rem; letter-spacing:.15em; text-transform:uppercase;
+      color:var(--cyan); text-decoration:none;
+      border-bottom:1px solid transparent;
+      transition:border-color .2s;
+    }
+    .card-link:hover { border-color:var(--cyan); }
+    .card-link::after { content:' →'; }
+
+    .card-link-ghost {
+      font-family:'Orbitron', monospace;
+      font-size:.55rem; letter-spacing:.15em; text-transform:uppercase;
+      color:rgba(168,200,232,.35); text-decoration:none; cursor:default;
+    }
+
+    /* ─── FEATURED CARD (wide) ─── */
+    .project-card.featured {
+      grid-column: span 2;
+      flex-direction:row;
+    }
+    .project-card.featured .card-visual {
+      width:320px; min-width:280px; height:auto;
+      flex-shrink:0;
+    }
+    .project-card.featured .card-visual-num { font-size:5rem; }
+
+    /* ─── CONTACT CTA ─── */
+    .cta-section {
+      max-width:1300px; margin:0 auto;
+      padding:0 2rem 8rem;
+      position:relative; z-index:2;
+      text-align:center;
+    }
+    .cta-box {
+      border:1px solid rgba(0,212,255,.15);
+      padding:4rem 2rem;
+      background:var(--card-bg);
+      position:relative; overflow:hidden;
+    }
+    .cta-box::before {
+      content:'';
+      position:absolute; inset:0;
+      background:radial-gradient(ellipse at 50% 0%, rgba(0,212,255,.07) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .cta-box h2 {
+      font-family:'Orbitron', monospace;
+      font-size:clamp(1.4rem,3vw,2.2rem); font-weight:900;
+      color:var(--star-white); margin-bottom:1rem;
+    }
+    .cta-box p {
+      font-size:.9rem; color:var(--text-body); font-weight:300;
+      line-height:1.8; max-width:480px; margin:0 auto 2rem;
+    }
+    .btn-primary {
+      font-family:'Orbitron', monospace;
+      font-size:.65rem; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--void);
+      background:linear-gradient(135deg,var(--cyan),#0099bb);
+      padding:.9rem 2.5rem; display:inline-block;
+      clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
+      transition:filter .3s,transform .3s;
+      box-shadow:0 0 30px rgba(0,212,255,.28);
+      text-decoration:none;
+    }
+    .btn-primary:hover { filter:brightness(1.2); transform:translateY(-2px); box-shadow:0 0 50px rgba(0,212,255,.45); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position:relative; z-index:2;
+      border-top:1px solid rgba(0,212,255,.08);
+      padding:2rem;
+    }
+    .footer-inner {
+      max-width:1300px; margin:0 auto;
+      display:flex; justify-content:space-between; align-items:center;
+      flex-wrap:wrap; gap:1rem;
+    }
+    .footer-brand {
+      font-family:'Orbitron', monospace;
+      font-size:.9rem; font-weight:900; letter-spacing:.3em;
+      color:var(--cyan); text-shadow:0 0 15px var(--cyan-glow);
+    }
+    .footer-copy, .footer-coords {
+      font-family:'Orbitron', monospace; letter-spacing:.1em;
+      font-size:.65rem; color:rgba(168,200,232,.35);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width:900px) {
+      .project-card.featured { grid-column:span 1; flex-direction:column; }
+      .project-card.featured .card-visual { width:100%; height:180px; }
+    }
+    @media (max-width:768px) {
+      .nav-toggle { display:block; }
+      .nav-links {
+        display:none; position:absolute; top:64px; left:0; right:0;
+        background:rgba(2,4,9,.97);
+        border-bottom:1px solid rgba(0,212,255,.1);
+        flex-direction:column; align-items:center;
+        gap:0; padding:1.5rem 0;
+      }
+      .nav-links.open { display:flex; }
+      .nav-links li { width:100%; text-align:center; padding:.8rem 0; }
+      .project-grid { grid-template-columns:1fr; }
+      .footer-inner { flex-direction:column; text-align:center; }
+      .hero-bracket { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Cursors -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Starfield -->
+<canvas id="starfield"></canvas>
+
+<!-- ─── NAV ─── -->
+<header>
+  <nav class="navbar">
+    <a href="index.html" class="brand">GillzSkywalker</a>
+    <button class="nav-toggle" id="navToggle">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="#projects" class="active">Projects</a></li>
+      <li><a href="index.html#filter">SSkills</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ─── HERO ─── -->
+  <section id="hero" class="hero-section">
+    <div class="hero-bracket hero-bracket-tl"></div>
+    <div class="hero-bracket hero-bracket-tr"></div>
+    <div class="hero-bracket hero-bracket-bl"></div>
+    <div class="hero-bracket hero-bracket-br"></div>
+
+    <p class="hero-eyebrow">Mission Archive // Work Log Active</p>
+    <h1 class="hero-title">BSc Creative computing Year 1<br>Projects in year 1</h1>
+    <p class="hero-sub">Professional front-end developer, graphic designer &amp; UX architect navigating the digital cosmos.</p>
+    <div class="hero-tags">
+      <span class="tag">Front-End Dev</span>
+      <span class="tag mag">Software Developer</span>
+      <span class="tag">Graphic Design</span>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT STRIP ─── -->
+  <div class="section-divider"><span>Sector 01 // Bio Data</span></div>
+
+  <div class="section-wrap about-strip">
+    <p>
+      A collection of missions completed, in-progress, and on the horizon.
+      Each project represents a blend of creativity, technical precision, and storytelling —
+      crafted to push the boundaries of the digital universe.
+      <br><br>
+      Add your own project descriptions and links where marked. Replace placeholder icons with screenshots or mockups.
+    </p>
+    <div class="stat-row">
+      <div class="stat-box">
+        <span class="stat-num">06</span>
+        <span class="stat-label">Projects</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">03</span>
+        <span class="stat-label">Disciplines</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">Ideas</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FILTER BAR ─── -->
+  <div class="section-divider"><span>Sector 02 // Mission Log</span></div>
+
+  <div id="projects" class="section-wrap filter-wrap">
+    <span class="filter-label">Filter //</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="dev">Development</button>
+    <button class="filter-btn" data-filter="design">Design</button>
+    <button class="filter-btn" data-filter="ux">UX</button>
+  </div>
+
+  <!-- ─── PROJECT GRID ─── -->
+  <div class="projects-wrap">
+    <div class="project-grid" id="projectGrid">
+
+      <!-- CARD 1 — Featured / wide -->
+      <div class="project-card featured vis-1" data-cat="dev">
+        <div class="card-visual">
+          <div class="card-visual-bg"></div>
+          <div class="card-visual-icon">🚀</div>
+          <div class="card-visual-num">01</div>
+          <span class="card-status status-live">● Live</span>
+        </div>
+        <div class="card-body">
+          <span class="card-category">Front-End Development</span>
+          <h3 class="card-title">Project One Title</h3>
+          <p class="card-desc">
+            Replace this with a compelling description of your project. What problem did it solve?
+            What was your role? What was the outcome? Keep it punchy — 2-3 sentences max.
+          </p>
+          <div class="card-tech">
+            <span class="tech-chip">HTML</span>
+            <span class="tech-chip">CSS</span>
+            <span class="tech-chip">JavaScript</span>
+            <span class="tech-chip gold">Figma</span>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-link">View Project</a>
+            <a href="#" class="card-link" style="color:var(--text-body)">Source Code →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="project-card vis-2" data-cat="design">
+        <div class="card-visual">
+          <div class="card-visual-bg"></div>
+          <div class="card-visual-icon">🎨</div>
+          <div class="card-visual-num">02</div>
+          <span class="card-status status-live">● Live</span>
+        </div>
+        <div class="card-body">
+          <span class="card-category">Graphic Design</span>
+          <h3 class="card-title">Project Two Title</h3>
+          <p class="card-desc">
+            Describe your design work here — branding, visual identity, illustration, or print.
+            Mention tools used and the impact it created.
+          </p>
+          <div class="card-tech">
+            <span class="tech-chip gold">Illustrator</span>
+            <span class="tech-chip gold">Photoshop</span>
+            <span class="tech-chip">CSS</span>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-link">View Project</a>
+            <span class="card-link-ghost">Private Repo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="project-card vis-3" data-cat="ux">
+        <div class="card-visual">
+          <div class="card-visual-bg"></div>
+          <div class="card-visual-icon">🧭</div>
+          <div class="card-visual-num">03</div>
+          <span class="card-status status-wip">◐ In Progress</span>
+        </div>
+        <div class="card-body">
+          <span class="card-category">UX Design</span>
+          <h3 class="card-title">Project Three Title</h3>
+          <p class="card-desc">
+            Detail your UX process — research, wireframes, prototyping, or user testing.
+            What insights shaped the final design?
+          </p>
+          <div class="card-tech">
+            <span class="tech-chip gold">Figma</span>
+            <span class="tech-chip">Prototyping</span>
+            <span class="tech-chip">User Research</span>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-link">Case Study</a>
+            <span class="card-link-ghost">In Progress</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="project-card vis-4" data-cat="dev">
+        <div class="card-visual">
+          <div class="card-visual-bg"></div>
+          <div class="card-visual-icon">⚡</div>
+          <div class="card-visual-num">04</div>
+          <span class="card-status status-live">● Live</span>
+        </div>
+        <div class="card-body">
+          <span class="card-category">Front-End Development</span>
+          <h3 class="card-title">Project Four Title</h3>
+          <p class="card-desc">
+            Another development project. Talk about the stack, any challenges you overcame,
+            and what you're most proud of building.
+          </p>
+          <div class="card-tech">
+            <span class="tech-chip">React</span>
+            <span class="tech-chip">JavaScript</span>
+            <span class="tech-chip gold">Figma</span>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-link">View Project</a>
+            <a href="#" class="card-link" style="color:var(--text-body)">Source Code →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="project-card vis-1" data-cat="design">
+        <div class="card-visual">
+          <div class="card-visual-bg"></div>
+          <div class="card-visual-icon">✦</div>
+          <div class="card-visual-num">05</div>
+          <span class="card-status status-concept">◌ Concept</span>
+        </div>
+        <div class="card-body">
+          <span class="card-category">Graphic Design</span>
+          <h3 class="card-title">Project Five Title</h3>
+          <p class="card-desc">
+            A concept or personal project. Even experimental work tells a story about
+            your creative range and curiosity.
+          </p>
+          <div class="card-tech">
+            <span class="tech-chip gold">Illustrator</span>
+            <span class="tech-chip">HTML</span>
+            <span class="tech-chip">CSS</span>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="card-link">View Project</a>
+            <span class="card-link-ghost">Concept</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 6 — Coming Soon -->
+      <div class="project-card vis-2" data-cat="ux">
+        <div class="card-visual">
+          <div class="card-visual-bg"></div>
+          <div class="card-visual-icon">🌐</div>
+          <div class="card-visual-num">06</div>
+          <span class="card-status status-wip">◐ In Progress</span>
+        </div>
+        <div class="card-body">
+          <span class="card-category">UX Design</span>
+          <h3 class="card-title">Next Mission</h3>
+          <p class="card-desc">
+            New coordinates locked in. The next mission is in development —
+            a deep dive into interaction design and user-centred thinking.
+          </p>
+          <div class="card-tech">
+            <span class="tech-chip gold">Figma</span>
+            <span class="tech-chip">Prototyping</span>
+          </div>
+          <div class="card-footer">
+            <a href="index.html#contact" class="card-link">Get Notified</a>
+            <span class="card-link-ghost">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /project-grid -->
+  </div><!-- /projects-wrap -->
+
+  <!-- ─── CTA ─── -->
+  <div class="section-divider"><span>Sector 03 // Open Channel</span></div>
+
+  <section class="cta-section">
+    <div class="cta-box">
+      <h2>Let's Build Something Extraordinary</h2>
+      <p>Have a project in mind? Transmit your signal and I'll respond within one orbital cycle.</p>
+      <a href="index.html#contact" class="btn-primary">Open Channel</a>
+    </div>
+  </section>
+
+
+  <!-- Skills sections-->
+   <section>
+    <div class="section-divider"><span>Sector 04 // Skills Matrix</span></div>
+        <div class="section-wrap about-strip">
+            <p>
+                A visual matrix of your skills and proficiencies. This can be a grid or radar chart showing your expertise in various tools, languages, and disciplines.
+                Use this space to highlight your strengths and areas of focus.
+            </p>
+            <!-- Placeholder for skills matrix visualization -->
+            <div style="width:100%; height:300px; background:var(--deep); display:flex; align-items:center; justify-content:center; color:rgba(168,200,232,.35);">
+                Skills Matrix Visualization Here
+            </div>
+        </div>
+   </section>
+
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">GILLZ //</div>
+    <div class="footer-copy">&copy; 2026 GillzSkywalker. All rights reserved.</div>
+    <div class="footer-coords">LAT 14.5995° N · LNG 120.9842° E</div>
+  </div>
+</footer>
+
+<script>
+  /* ── CURSOR ── */
+  const cursor    = document.getElementById('cursor');
+  const cursorRing= document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+  });
+  (function tick(){
+    rx+=(mx-rx)*.13; ry+=(my-ry)*.13;
+    cursorRing.style.left=rx+'px'; cursorRing.style.top=ry+'px';
+    requestAnimationFrame(tick);
+  })();
+
+  document.querySelectorAll('a,button,input,.filter-btn').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ cursor.style.width='6px'; cursor.style.height='6px'; cursor.style.background='var(--cyan)'; cursorRing.style.width='52px'; cursorRing.style.height='52px'; });
+    el.addEventListener('mouseleave',()=>{ cursor.style.width='12px'; cursor.style.height='12px'; cursor.style.background='transparent'; cursorRing.style.width='36px'; cursorRing.style.height='36px'; });
+  });
+
+  /* ── STARFIELD ── */
+  const canvas=document.getElementById('starfield');
+  const ctx=canvas.getContext('2d');
+  let stars=[];
+
+  function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+  resize(); window.addEventListener('resize',()=>{ resize(); initStars(); });
+
+  function initStars(){
+    stars=[];
+    for(let i=0;i<280;i++) stars.push({
+      x:Math.random()*canvas.width, y:Math.random()*canvas.height,
+      r:Math.random()*1.4+.2, alpha:Math.random()*.8+.2,
+      speed:Math.random()*.012+.004,
+      twinkle:Math.random()*Math.PI*2, twinkleSpeed:Math.random()*.02+.005,
+      color:Math.random()>.85?'#00d4ff':Math.random()>.9?'#ff2d78':'#e8f4ff'
+    });
+  }
+  initStars();
+
+  const nebulas=Array.from({length:6},()=>({
+    x:Math.random()*1400, y:Math.random()*900,
+    r:Math.random()*220+80,
+    color:Math.random()>.5?'rgba(0,212,255,':'rgba(255,45,120,',
+    alpha:Math.random()*.025+.008
+  }));
+
+  (function frame(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    nebulas.forEach(n=>{
+      const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);
+      g.addColorStop(0,n.color+n.alpha+')'); g.addColorStop(1,n.color+'0)');
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2); ctx.fill();
+    });
+    stars.forEach(s=>{
+      s.twinkle+=s.twinkleSpeed;
+      ctx.globalAlpha=s.alpha*(0.6+0.4*Math.sin(s.twinkle));
+      ctx.fillStyle=s.color; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
+      s.y+=s.speed; if(s.y>canvas.height){ s.y=0; s.x=Math.random()*canvas.width; }
+    });
+    ctx.globalAlpha=1;
+    requestAnimationFrame(frame);
+  })();
+
+  /* ── NAV TOGGLE ── */
+  document.getElementById('navToggle').addEventListener('click',()=>{
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.querySelectorAll('.nav-links a').forEach(a=>
+    a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'))
+  );
+
+  /* ── FILTER ── */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards      = document.querySelectorAll('.project-card');
+
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f=btn.dataset.filter;
+      cards.forEach(c=>{
+        const match = f==='all' || c.dataset.cat===f;
+        c.style.transition='opacity .35s, transform .35s';
+        c.style.opacity = match?'1':'0.2';
+        c.style.transform = match?'scale(1)':'scale(0.97)';
+        c.style.pointerEvents = match?'auto':'none';
+      });
+    });
+  });
+
+  /* ── SCROLL REVEAL ── */
+  const revealObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+    });
+  },{threshold:.1});
+
+  cards.forEach((c,i)=>{
+    c.style.opacity='0'; c.style.transform='translateY(32px)';
+    c.style.transition=`opacity .6s ${i*.08}s ease, transform .6s ${i*.08}s ease, border-color .35s, box-shadow .35s`;
+    revealObs.observe(c);
+  });
+</script>
+</body>
+</html>
