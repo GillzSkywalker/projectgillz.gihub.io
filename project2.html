@@ -319,6 +319,8 @@
     .card-visual-icon {
       font-size:2.5rem; position:relative; z-index:1;
       filter:drop-shadow(0 0 16px var(--cyan));
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
     }
     .card-visual-num {
       position:absolute; bottom:.6rem; right:.8rem;
@@ -489,6 +491,12 @@
       .footer-inner { flex-direction:column; text-align:center; }
       .hero-bracket { display:none; }
     }
+
+    .card-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
@@ -526,11 +534,11 @@
     <p class="hero-eyebrow">Mission Archive // Work Log Active</p>
     <h1 class="hero-title">BSc Creative computing Year 2<br>Projects</h1>
     <p class="hero-sub">A collection of projects like functionable websites in Web development 2, Game Development, CodeLab 2, A code with GUI.
-      And as well as emerging technologies and mobile app developer using andriod studio.
+      And as well as emerging technologies and mobile app developer using andriod studio and google dialogflow. 
     </p>
     <div class="hero-tags">
-      <span class="tag">Front-End Dev</span>
-      <span class="tag mag">Software Developer</span>
+      <span class="tag">Front-End Dev and back-end developer</span>
+      <span class="tag mag">Software Development</span>
       <span class="tag">Graphic Design</span>
     </div>
   </section>
@@ -540,9 +548,8 @@
 
   <div class="section-wrap about-strip">
     <p>
-      A collection of missions completed, in-progress, and on the horizon.
-      Each project represents a blend of creativity, technical precision, and storytelling —
-      crafted to push the boundaries of the digital universe.
+     This a showcase of my projects in year 2 of Creative computing course. These compilations of projects demonstrates my growth in learning and applying such skills in different various of game development, functional web development, Python code with GUI. 
+     As well as emerging technologies and mobile app development. Each project is a testament to my dedication to honing my craft and pushing the boundaries of creativity and technical skill.
       <br><br>
       Add your own project descriptions and links where marked. Replace placeholder icons with screenshots or mockups.
     </p>
@@ -551,14 +558,7 @@
         <span class="stat-num">06</span>
         <span class="stat-label">Projects</span>
       </div>
-      <div class="stat-box">
-        <span class="stat-num">03</span>
-        <span class="stat-label">Disciplines</span>
-      </div>
-      <div class="stat-box">
-        <span class="stat-num">∞</span>
-        <span class="stat-label">Ideas</span>
-      </div>
+    
     </div>
   </div>
 
@@ -568,9 +568,11 @@
   <div id="projects" class="section-wrap filter-wrap">
     <span class="filter-label">Filter //</span>
     <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="dev">Development</button>
-    <button class="filter-btn" data-filter="design">Design</button>
-    <button class="filter-btn" data-filter="ux">UX</button>
+    <button class="filter-btn" data-filter="dev">Game Development</button>
+    <button class="filter-btn" data-filter="design">Web Development 2 </button>
+    <button class="filter-btn" data-filter="ux">CodeLab 2</button>
+    <button class="filter-btn" data-filter="design">Mobile App Development</button>
+    <button class="filter-btn" data-filter="dev">Emerging Technologies</button>
   </div>
 
   <!-- ─── PROJECT GRID ─── -->
@@ -581,9 +583,9 @@
       <div class="project-card featured vis-1" data-cat="dev">
         <div class="card-visual">
           <div class="card-visual-bg"></div>
-          <div class="card-visual-bg">
+          <div class="card-visual-icon">
             <img src="gamedev.png" alt="website-project">
-             </div>
+          </div>
           <div class="card-visual-num">01</div>
           <span class="card-status status-live">● Live</span>
         </div>
@@ -614,17 +616,17 @@
         <div class="card-visual">
           <div class="card-visual-bg"></div>
           <div class="card-visual-icon">
-                        <img src="Screenshot 2026-03-04 134223.png" alt="website-project" style="width:60%;height:60%;object-fit:contain;">
+                        <img src="starwarssite.png" alt="website-project">
           </div>
           <div class="card-visual-icon">
           </div>
           <div class="card-visual-num">02</div>
         </div>
         <div class="card-body">
-          <span class="card-category">Web Development 1</span>
-          <h3 class="card-title">My very first front-end website, Gillian's inky works.</h3>
+          <span class="card-category">Web Development 2 </span>
+          <h3 class="card-title">Star wars fan website </h3>
           <p class="card-desc">
-            This was my first ever fron-end project website. I was inspired to create this website in order to make my own art gallery website based on 
+            This is my second website project in year 2. It is basically creating a website with front-end and back-end. This time I used HTML, CSS and JavaScript for the front-end and PHP for the back-end. I created a star wars fan website that contains information about star wars movies, characters, and other related content. I also implemented a contact form that allows visitors to send messages to the website owner. The project was a great opportunity for me to apply my web development skills and create a functional and visually appealing website.
           </p>
           <div class="card-tech">
             <span class="tech-chip gold">Illustrator</span>
