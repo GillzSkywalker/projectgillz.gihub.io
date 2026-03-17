@@ -272,6 +272,7 @@
       display:grid;
       grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));
       gap:1.4rem;
+      justify-content: center;
     }
 
     /* ─── PROJECT CARD ─── */
@@ -349,7 +350,7 @@
     .status-wip    { color:var(--gold); border-color:rgba(255,209,102,.4); background:rgba(255,209,102,.08); }
     .status-concept{ color:var(--text-body); border-color:rgba(168,200,232,.2); background:rgba(168,200,232,.05); }
 
-    .card-body { padding:1.6rem; flex:1; display:flex; flex-direction:column; }
+    .card-body { padding:1.6rem; flex:1; display:flex; flex-direction:column; text-align: center; }
 
     .card-category {
       font-family:'Orbitron', monospace;
@@ -370,6 +371,7 @@
 
     .card-tech {
       display:flex; gap:.4rem; flex-wrap:wrap; margin-top:1.2rem;
+      justify-content: center;
     }
     .tech-chip {
       font-family:'Orbitron', monospace;
@@ -384,7 +386,7 @@
     }
 
     .card-footer {
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex; align-items:center; justify-content:center;
       margin-top:1.4rem; padding-top:1rem;
       border-top:1px solid rgba(0,212,255,.08);
     }
@@ -591,7 +593,8 @@
 
     <p class="hero-eyebrow">Mission Archive // Work Log Active</p>
     <h1 class="hero-title">BSc Creative computing Year 3<br>Projects</h1>
-    <p class="hero-sub">These projects explained and examined. It's just all about full stack web development, Tomorrow's web then machine learning with Python. 
+    <p class="hero-sub">These projects explained and examined. It's just all about full stack web development, Tomorrow's web then machine learning with Python by using kaggle. This projet is more on creating 
+      a software and website that can collect data and such information. 
     </p>
     <div class="hero-tags">
       <span class="tag">Front-End Dev and back-end developer full </span>
@@ -605,10 +608,9 @@
 
   <div class="section-wrap about-strip">
     <p>
-     This a showcase of my projects in year 2 of Creative computing course. These compilations of projects demonstrates my growth in learning and applying such skills in different various of game development, functional web development, Python code with GUI. 
-     As well as emerging technologies and mobile app development. Each project is a testament to my dedication to honing my craft and pushing the boundaries of creativity and technical skill.
-      <br><br>
-      Add your own project descriptions and links where marked. Replace placeholder icons with screenshots or mockups.
+This project showcases the full stack website and more focused on collecting something and some information of the series of manga and comics. 
+In the other hand, this showcases more and usage on databases and information to collect when creating a website. So far this website helps and influences people around 
+who are interested of things.  <br><br>
     </p>
     <div class="stat-row">
       <div class="stat-box">
@@ -634,55 +636,24 @@
   <div class="projects-wrap">
     <div class="project-grid" id="projectGrid">
 
-      <!-- CARD 1 — Featured / wide -->
-      <div class="project-card featured vis-1" data-cat="dev">
-        <div class="card-visual">
-          <div class="card-visual-bg"></div>
-          <div class="card-visual-icon">
-            <img src="gamedev.png" alt="Raven Dash Game">
-          </div>
-          <div class="card-visual-num">01</div>
-          <span class="card-status status-live">● Live</span>
-        </div>
-        <div class="card-body">
-          <span class="card-category">Game Development</span>
-          <h3 class="card-title">Raven Dash - Flappy Bird Type Game</h3>
-          <p class="card-desc">
-            A game I created in the Game Development module. The game is a 2D side-scroller where players control a raven navigating through a series of obstacles.
-            The objective is to survive as long as possible while collecting coins and power-ups to increase the score.
-            I created a video game similar to Flappy Bird using Unity and C# to develop this game, and I used random pixel art images
-            for the game to make it more fun and interesting. Then I uploaded the game through itch.io so everyone can play the game that I have shared.
-          </p>
-          <div class="card-tech">
-            <span class="tech-chip">Unity</span>
-            <span class="tech-chip">C#</span>
-            <span class="tech-chip gold">Pixel Art</span>
-            <span class="tech-chip">Game Design</span>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="card-link">Play Game →</a>
-            <a href="#" class="card-link" style="color:var(--text-body)">Source Code →</a>
-          </div>
-        </div>
-      </div>
+    
 
       <!-- CARD 2 -->
       <div class="project-card vis-2" data-cat="design">
         <div class="card-visual">
           <div class="card-visual-bg"></div>
           <div class="card-visual-icon">
-            <img src="starwarssite.png" alt="Star Wars Fan Website">
+            <img src="tomorrow'sweb.png" alt="Star Wars Fan Website">
           </div>
           <div class="card-visual-num">02</div>
           <span class="card-status status-live">● Live</span>
         </div>
         <div class="card-body">
-          <span class="card-category">Web Development 2</span>
-          <h3 class="card-title">Star Wars Fan Website</h3>
+          <span class="card-category">Tomorrow's web</span>
+          <h3 class="card-title">InkBit - The Smartest collection tracker</h3>
           <p class="card-desc">
-            I created a Star Wars fan website in Web Development 2. This website is all about Star Wars tribute. I utilized HTML, CSS and JavaScript to build a responsive website that shows the information
-            and lore of Star Wars. It was run on GitHub Pages as I shared the websites based on such inspiration. Since I am a big fan of Star Wars, I really enjoyed myself in creating this responsive website and the result fits the theme itself as well as the content that I have placed in the
-            website. It's like a blog format with minimalist design but I am proud of the result and I am looking forward to improving the website in the future.
+            So here is the output of my website called InkBit which is basically a minimalistic type of website that is focused on tracking your collection of items. It is a simple and useful website for me to learn how to use HTML and CSS for web development. 
+             The project focuses on creating a clean, organized layout structure that demonstrates fundamental web design principles.
           </p>
           <div class="card-tech">
             <span class="tech-chip gold">HTML</span>
@@ -728,88 +699,8 @@
       </div>
 
       <!-- CARD 4 -->
-      <div class="project-card vis-4" data-cat="dev">
-        <div class="card-visual">
-          <div class="card-visual-bg"></div>
-          <div class="card-visual-icon">
-            <img src="app1.png" alt="Android App Project">
-          </div>
-          <div class="card-visual-num">04</div>
-          <span class="card-status status-wip">◐ In Progress</span>
-        </div>
-        <div class="card-body">
-          <span class="card-category">Mobile App Development</span>
-          <h3 class="card-title">Alchematics - NAN Calculator</h3>
-          <p class="card-desc">
-            I developed a NAN Calculator mobile applications in android studio. Since I had an idea how to create a combination of the main four elements. 
-            The design are minimalist. This application is way inspired from little alchemy software game that starts with base elements amd then after calculating the combined element, 
-            you will get a new element. These are logical and the others might result in a mysterious NAN. 
-          </p>
-          <div class="card-tech">
-            <span class="tech-chip">Android Studio</span>
-            <span class="tech-chip">Java/Kotlin</span>
-          
-          </div>
-          <div class="card-footer">
-          </div>
-        </div>
-      </div>
+     
 
-         <div class="project-card vis-4" data-cat="dev">
-        <div class="card-visual">
-          <div class="card-visual-bg"></div>
-          <div class="card-visual-icon">
-            <img src="app2.png" alt="Android App Project">
-          </div>
-          <div class="card-visual-num">04</div>
-          <span class="card-status status-wip">◐ In Progress</span>
-        </div>
-        <div class="card-body">
-          <span class="card-category">Mobile App Development</span>
-          <h3 class="card-title">Cryptogen - Password Generator</h3>
-          <p class="card-desc">
-            I developed a password generator mobile applications in andriod studio. I generated an application that can generate a random password. I called it Cryptogen since I can not think of any better name for the application, It got my attention until when it comes to some sort of generating things like passwords. 
-            It is helpful for users to secure their identity and it involves uses to make their passwords stronger and protected from fraud and hackers. It is also reliable to protect 
-            user's data information and identity. I used figma for warframes and prototyping and the design of the application. Then I used android studio for the actucal app and run it. 
-          </p>
-          <div class="card-tech">
-            <span class="tech-chip">Android Studio</span>
-            <span class="tech-chip">Java/Kotlin</span>
-          
-          </div>
-          <div class="card-footer">
-          </div>
-        </div>
-      </div>
-
-      <!-- CARD 5 -->
-      <div class="project-card vis-1" data-cat="design">
-        <div class="card-visual">
-          <div class="card-visual-bg"></div>
-          <div class="card-visual-icon">
-            <img src="pokedex.png" alt="Pokedex Python GUI">
-          </div>
-          <div class="card-visual-num">05</div>
-          <span class="card-status status-live">● Live</span>
-        </div>
-        <div class="card-body">
-          <span class="card-category">CodeLab 2</span>
-          <h3 class="card-title"> Pokedex - Python GUI Application</h3>
-          <p class="card-desc">
-            I created a pokedex application using Python with GUI libaries such as Tkinter. I used the PokeAPI to fetch data about different types of Pokemon, including their names, types, abilities, and stats. The application features a search functionality that allows users to look up specific Pokemon by name or ID. The design is simple and user-friendly, with a clean interface that displays the information in an organized manner. This project was a great opportunity for me to practice my Python programming skills and learn how to create desktop applications with a graphical user interface.
-          </p>
-          <div class="card-tech">
-            <span class="tech-chip gold">Python</span>
-            <span class="tech-chip">Tkinter/PyQt</span>
-            <span class="tech-chip">GUI Design</span>
-            <span class="tech-chip">Desktop Apps</span>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="card-link">View Application →</a>
-            <a href="#" class="card-link" style="color:var(--text-body)">Source Code →</a>
-          </div>
-        </div>
-      </div>
 
       <!-- CARD 6 — Emerging Technologies -->
  
