@@ -6,33 +6,24 @@
   <title>Experience - GILLZ</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
   <style>
     :root {
-      --void: #0d1426;
+      --void: #091712;
       --deep: #0f1830;
       --nebula-blue: #132440;
       --star-white: #e8f4ff;
       --cyan: #12ea65;
-      --cyan-dim: rgba(18,234,101,0.12);
+      --cyan-dim: rgba(0,212,255,0.15);
       --cyan-glow: rgba(0,212,255,0.4);
-      --magenta: #2a0a4a;
-      --mag-dim: rgba(255,45,120,0.12);
+      --magenta: #ffd413;
       --gold: #ffd166;
       --text-body: #c8d8e8;
       --grid-line: rgba(0,212,255,0.08);
-      --card-bg: rgba(10,22,40,0.85);
+      --card-bg: rgba(7, 71, 56, 0.85);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Exo 2', sans-serif;
@@ -40,62 +31,49 @@
       color: var(--star-white);
       overflow-x: hidden;
       cursor: none;
+      font-size: 16px; /* base medium size */
     }
 
-    /* ─── CANVAS & GRID ─── */
+    /* ── STARFIELD & GRID ── */
     #starfield {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0; pointer-events: none;
     }
 
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image:
         linear-gradient(var(--grid-line) 1px, transparent 1px),
         linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
       background-size: 60px 60px;
-      z-index: 1;
-      pointer-events: none;
+      z-index: 1; pointer-events: none;
     }
 
-    /* ─── CUSTOM CURSOR ─── */
+    /* ── CURSOR ── */
     .cursor {
-      width: 12px;
-      height: 12px;
+      width: 12px; height: 12px;
       border: 1.5px solid var(--cyan);
       border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
+      position: fixed; pointer-events: none;
       transform: translate(-50%, -50%);
-      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
-      z-index: 10000;
-      mix-blend-mode: screen;
+      transition: transform 0.1s, width 0.2s, height 0.2s;
+      z-index: 10000; mix-blend-mode: screen;
     }
-
     .cursor-ring {
-      width: 36px;
-      height: 36px;
+      width: 36px; height: 36px;
       border: 1px solid rgba(18,234,101,0.4);
       border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
+      position: fixed; pointer-events: none;
       transform: translate(-50%, -50%);
-      transition: transform 0.12s ease-out, width 0.3s, height 0.3s;
+      transition: transform 0.12s ease-out;
       z-index: 9999;
     }
 
-    /* ─── NAV ─── */
+    /* ── NAV ── */
     header {
-      position: fixed;
-      top: 0;
-      width: 100%;
+      position: fixed; top: 0; width: 100%;
       z-index: 1000;
       backdrop-filter: blur(16px);
       background: rgba(2,4,9,0.7);
@@ -103,123 +81,78 @@
     }
 
     .navbar {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center;
       justify-content: space-between;
-      padding: 0 2rem;
-      height: 64px;
+      padding: 0 2rem; height: 64px;
     }
 
     .brand {
       font-family: 'Orbitron', monospace;
-      font-size: 1.4rem;
-      font-weight: 900;
-      letter-spacing: 0.3em;
-      color: var(--cyan);
+      font-size: 1.4rem; font-weight: 900;
+      letter-spacing: 0.3em; color: var(--cyan);
       text-shadow: 0 0 20px var(--cyan-glow);
-      position: relative;
     }
 
-    .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 2.5rem;
-    }
-
+    .nav-links { display: flex; list-style: none; gap: 2.5rem; }
     .nav-links a {
       font-family: 'Orbitron', monospace;
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-body);
-      text-decoration: none;
-      position: relative;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-body); text-decoration: none;
       transition: color 0.3s;
     }
+    .nav-links a:hover { color: var(--cyan); }
 
-    .nav-links a:hover {
-      color: var(--cyan);
-    }
-
-    /* ─── SECTION DIVIDER ─── */
+    /* ── SECTION DIVIDER ── */
     .section-divider {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      display: flex; align-items: center; gap: 1rem;
+      max-width: 1200px; margin: 8rem auto 0;
       padding: 0 2rem;
-      margin-top: 8rem;
-      position: relative;
-      z-index: 2;
+      position: relative; z-index: 2;
     }
-
     .section-divider::before,
     .section-divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
+      content: ''; flex: 1; height: 1px;
       background: linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent);
     }
-
     .section-divider span {
       font-family: 'Orbitron', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.3em;
-      color: rgba(0,212,255,0.4);
-      text-transform: uppercase;
+      font-size: 0.65rem; letter-spacing: 0.3em;
+      color: rgba(0,212,255,0.5); text-transform: uppercase;
       white-space: nowrap;
     }
 
-    /* ─── EXPERIENCE SECTION ─── */
+    /* ── EXPERIENCE SECTION ── */
     .experience-section {
-      padding: 7rem 2rem;
-      max-width: 1000px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
+      padding: 5rem 2rem 7rem;
+      max-width: 1000px; margin: 0 auto;
+      position: relative; z-index: 2;
     }
 
-    .section-header {
-      margin-bottom: 4rem;
-    }
+    .section-header { margin-bottom: 4rem; }
 
-    .section-header h2 {
+    .section-header .label {
       font-family: 'Orbitron', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.4em;
-      color: var(--cyan);
-      text-transform: uppercase;
+      font-size: 0.65rem; letter-spacing: 0.4em;
+      color: var(--cyan); text-transform: uppercase;
       margin-bottom: 0.6rem;
+      display: block;
     }
-
-    .section-header h2::before {
-      content: '// ';
-      opacity: 0.5;
-    }
+    .section-header .label::before { content: '// '; opacity: 0.5; }
 
     .section-header .big-title {
       font-family: 'Orbitron', monospace;
       font-size: clamp(1.8rem, 3vw, 2.6rem);
-      font-weight: 700;
-      color: var(--star-white);
+      font-weight: 700; color: var(--star-white);
     }
 
-    .timeline {
-      position: relative;
-      padding: 2rem 0;
-    }
-
+    /* ── TIMELINE ── */
+    .timeline { position: relative; padding: 2rem 0; }
     .timeline::before {
       content: '';
-      position: absolute;
-      left: 20px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
+      position: absolute; left: 20px;
+      top: 0; bottom: 0; width: 2px;
       background: linear-gradient(180deg, rgba(18,234,101,0.4), transparent);
     }
 
@@ -229,29 +162,23 @@
       padding-left: 80px;
     }
 
+    /* Timeline dot */
     .experience-item::before {
       content: '';
-      position: absolute;
-      left: 0;
-      top: 8px;
-      width: 42px;
-      height: 42px;
+      position: absolute; left: 0; top: 8px;
+      width: 42px; height: 42px;
       background: var(--card-bg);
       border: 2px solid var(--cyan);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
+    /* ── CARD ── */
     .experience-card {
       background: var(--card-bg);
       border: 1px solid rgba(18,234,101,0.2);
-      border-radius: 8px;
-      padding: 2rem;
+      border-radius: 8px; padding: 2rem;
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-
     .experience-card:hover {
       border-color: rgba(18,234,101,0.4);
       transform: translateX(8px);
@@ -260,142 +187,101 @@
 
     .experience-card h3 {
       font-family: 'Orbitron', monospace;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--cyan);
-      margin-bottom: 0.4rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      font-size: 1.05rem; font-weight: 600;
+      color: var(--cyan); margin-bottom: 0.4rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
     }
 
     .experience-card .role {
       font-family: 'Orbitron', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      color: var(--magenta);
-      text-transform: uppercase;
-      margin-bottom: 0.8rem;
+      font-size: 0.8rem; letter-spacing: 0.2em;
+      color: var(--magenta); text-transform: uppercase;
+      margin-bottom: 0.4rem;
     }
 
     .experience-card .duration {
       font-family: 'Orbitron', monospace;
-      font-size: 0.65rem;
-      color: rgba(18,234,101,0.5);
+      font-size: 0.7rem;
+      color: rgba(18,234,101,0.55);
       margin-bottom: 1rem;
     }
 
     .experience-card p {
       color: var(--text-body);
-      font-size: 0.9rem;
-      line-height: 1.7;
-      margin-bottom: 1rem;
+      font-size: 1rem;       /* medium body text */
+      line-height: 1.75;
+      margin-bottom: 1.2rem;
     }
 
+    /* ── SKILLS LIST ── */
     .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 1rem;
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      margin-top: 0.5rem;
     }
 
     .skill-tag {
       font-family: 'Orbitron', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      padding: 0.4rem 0.8rem;
+      font-size: 0.7rem; letter-spacing: 0.1em;
+      padding: 0.4rem 0.9rem;
       background: rgba(18,234,101,0.08);
-      border: 1px solid rgba(18,234,101,0.2);
-      color: var(--cyan);
-      text-transform: uppercase;
-      border-radius: 4px;
-      transition: all 0.3s;
+      border: 1px solid rgba(18,234,101,0.25);
+      color: var(--cyan); text-transform: uppercase;
+      border-radius: 4px; transition: all 0.3s;
     }
-
     .skill-tag:hover {
       background: rgba(18,234,101,0.15);
-      border-color: rgba(18,234,101,0.4);
+      border-color: rgba(18,234,101,0.5);
     }
 
+    /* ── FOOTER ── */
     footer {
-      position: relative;
-      z-index: 2;
+      position: relative; z-index: 2;
       border-top: 1px solid rgba(0,212,255,0.15);
-      padding: 2rem;
-      text-align: center;
+      padding: 2rem; text-align: center;
       margin-top: 8rem;
     }
-
     .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
     }
-
     .footer-brand {
       font-family: 'Orbitron', monospace;
-      font-size: 0.9rem;
-      font-weight: 900;
-      letter-spacing: 0.3em;
-      color: var(--cyan);
+      font-size: 0.9rem; font-weight: 900;
+      letter-spacing: 0.3em; color: var(--cyan);
       text-shadow: 0 0 15px var(--cyan-glow);
     }
-
     .footer-copy {
-      font-size: 0.75rem;
-      color: rgba(168,200,232,0.4);
+      font-size: 0.78rem;
+      color: rgba(168,200,232,0.45);
       font-family: 'Orbitron', monospace;
       letter-spacing: 0.1em;
     }
+    .footer-coords {
+      font-size: 0.72rem;
+      color: rgba(168,200,232,0.3);
+      font-family: 'Orbitron', monospace;
+      letter-spacing: 0.08em;
+    }
 
-    /* ─── RESPONSIVE ─── */
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      .nav-links {
-        gap: 1.5rem;
-        font-size: 0.6rem;
-      }
-
-      .experience-section {
-        padding: 5rem 1.5rem;
-      }
-
-      .timeline {
-        padding-left: 0;
-      }
-
-      .timeline::before {
-        display: none;
-      }
-
-      .experience-item {
-        padding-left: 0;
-        margin-bottom: 2rem;
-      }
-
-      .experience-item::before {
-        display: none;
-      }
-
-      .experience-card {
-        padding: 1.5rem;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        text-align: center;
-      }
+      .nav-links { gap: 1.5rem; }
+      .nav-links a { font-size: 0.65rem; }
+      .experience-section { padding: 4rem 1.5rem; }
+      .timeline::before { display: none; }
+      .experience-item { padding-left: 0; margin-bottom: 2rem; }
+      .experience-item::before { display: none; }
+      .experience-card { padding: 1.5rem; }
+      .footer-inner { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
-  <!-- Cursor -->
+
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- Starfield -->
   <canvas id="starfield"></canvas>
 
   <!-- NAV -->
@@ -411,22 +297,30 @@
     </nav>
   </header>
 
-  <!-- EXPERIENCE -->
+  <!-- DIVIDER -->
   <div class="section-divider"><span>Sector 04 // Work Experience</span></div>
 
+  <!-- EXPERIENCE -->
   <section class="experience-section">
     <div class="section-header">
-      <h2>Experience</h2>
+      <span class="label">Experience</span>
       <p class="big-title">Professional Journey</p>
     </div>
 
     <div class="timeline">
+
+      <!-- 1. Front-End Developer -->
       <div class="experience-item">
         <div class="experience-card">
           <h3>Front-End Developer</h3>
-          <div class="role">Python practical</div>
-          <div class="duration">2023 - Present</div>
-          <p>Developed responsive websites and web applications using modern front-end technologies. Collaborated with designers to implement pixel-perfect designs and improve user experience across multiple projects.</p>
+          <div class="role">Web Development</div>
+          <div class="duration">2023 — Present</div>
+          <p>
+            Developed responsive websites and web applications using modern front-end technologies.
+            Collaborated with designers to implement pixel-perfect designs and improve user experience
+            across multiple projects. Balancing art and code, I continue learning and improving my
+            skills in this field — excited to see where it leads.
+          </p>
           <div class="skills-list">
             <span class="skill-tag">HTML</span>
             <span class="skill-tag">CSS</span>
@@ -436,12 +330,18 @@
         </div>
       </div>
 
+      <!-- 2. UX/UI Designer -->
       <div class="experience-item">
         <div class="experience-card">
           <h3>UX/UI Designer</h3>
           <div class="role">Design & Prototyping</div>
-          <div class="duration">2021 - 2023</div>
-          <p>Created user-centered designs for web and mobile applications. Conducted user research, wireframing, and high-fidelity prototyping. Worked closely with development teams to ensure design implementation and consistency.</p>
+          <div class="duration">2021 — 2023</div>
+          <p>
+            Prototyping and designing has always been my passion. Since discovering design, I've
+            felt the constant urge to create things that can inform, advertise, or entertain.
+            My first design was a poster and an application prototype for a school project — and
+            I've been hooked ever since.
+          </p>
           <div class="skills-list">
             <span class="skill-tag">Figma</span>
             <span class="skill-tag">Adobe XD</span>
@@ -451,12 +351,17 @@
         </div>
       </div>
 
+      <!-- 3. Graphic Designer -->
       <div class="experience-item">
         <div class="experience-card">
           <h3>Graphic Designer</h3>
           <div class="role">Visual Design</div>
-          <div class="duration">2021 - Present</div>
-          <p>Designed branding, marketing, and digital assets for sponsorships and storytelling campaigns. Created album artwork and promotional visuals to support creative projects and partnerships.</p>
+          <div class="duration">2021 — Present</div>
+          <p>
+            Visual design captivates me most. My long-standing love for computers gave me a canvas
+            to channel creativity into artworks that support advertising and entertainment.
+            Every project has helped me sharpen both my technical and artistic skills.
+          </p>
           <div class="skills-list">
             <span class="skill-tag">Figma</span>
             <span class="skill-tag">Canva</span>
@@ -466,12 +371,18 @@
         </div>
       </div>
 
+      <!-- 4. Python Developer -->
       <div class="experience-item">
         <div class="experience-card">
           <h3>Python Developer</h3>
-          <div class="role">Backend Development</div>
-          <div class="duration">2023 Launch</div>
-          <p>Started learning Python as the foundation for programming. Developed basic applications and scripts to understand core programming concepts before transitioning to web development.</p>
+          <div class="role">Software Development</div>
+          <div class="duration">2023 — Present</div>
+          <p>
+            Python was the first language that truly clicked for me. Training myself to code not
+            only deepened my understanding of computers, but made problem-solving feel intuitive.
+            It's time-consuming at times, but every session strengthens my skills and keeps me
+            engaged with the craft of programming.
+          </p>
           <div class="skills-list">
             <span class="skill-tag">Python</span>
             <span class="skill-tag">Fundamentals</span>
@@ -479,6 +390,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -491,6 +403,56 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // ── CURSOR ──
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+      setTimeout(() => {
+        ring.style.left = e.clientX + 'px';
+        ring.style.top  = e.clientY + 'px';
+      }, 80);
+    });
+
+    // ── STARFIELD ──
+    const canvas = document.getElementById('starfield');
+    const ctx    = canvas.getContext('2d');
+    let stars    = [];
+
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function initStars() {
+      stars = Array.from({ length: 160 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.4 + 0.3,
+        a: Math.random(),
+        speed: Math.random() * 0.003 + 0.001
+      }));
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        s.a += s.speed;
+        const alpha = (Math.sin(s.a) + 1) / 2 * 0.8 + 0.1;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(232, 244, 255, ${alpha})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(drawStars);
+    }
+
+    resize();
+    initStars();
+    drawStars();
+    window.addEventListener('resize', () => { resize(); initStars(); });
+  </script>
 </body>
 </html>

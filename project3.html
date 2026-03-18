@@ -3,572 +3,225 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Year 2 Projects</title>
+  <title>Year 3 Projects</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
   <style>
-    /* ─── TOKENS ─── */
     :root {
-      --void: #0d1426;
+      --void: #091712;
       --deep: #0f1830;
-      --nebula-blue: #132440;
-      --star-white:  #e8f4ff;
-      --cyan:        #12ea65;
-      --cyan-dim:    rgba(18,234,101,0.12);
-      --cyan-glow:   rgba(0,212,255,0.4);
-      --magenta:     #2a0a4a;
-      --mag-dim:     rgba(255,45,120,0.12);
-      --gold:        #ffd166;
-      --text-body:   #a8c8e8;
-      --grid-line:   rgba(0,212,255,0.055);
-      --card-bg:     rgba(10,22,40,0.75);
-      --border-dim:  rgba(0,212,255,0.13);
+      --star-white: #e8f4ff;
+      --cyan: #12ea65;
+      --cyan-dim: rgba(0,212,255,0.15);
+      --cyan-glow: rgba(0,212,255,0.4);
+      --magenta: #ffd413;
+      --mag-dim: rgba(255,45,118,0.058);
+      --gold: #ffd166;
+      --text-body: #c8d8e8;
+      --grid-line: rgba(0,212,255,0.08);
+      --card-bg: rgba(7,71,56,0.85);
     }
-
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior:smooth; }
 
     body {
-      font-family: 'Exo 2', sans-serif;
-      background: var(--void);
-      color: var(--star-white);
-      overflow-x: hidden;
-      cursor: none;
-      min-height: 100vh;
+      font-family:'Exo 2', sans-serif;
+      font-size:16px; line-height:1.6;
+      background:var(--void);
+      color:var(--star-white);
+      overflow-x:hidden; cursor:none; min-height:100vh;
     }
 
-    /* ─── CURSOR ─── */
-    .cursor {
-      width:12px; height:12px;
-      border:1.5px solid var(--cyan); border-radius:50%;
-      position:fixed; pointer-events:none;
-      transform:translate(-50%,-50%);
-      transition:width .2s,height .2s,background .2s;
-      z-index:10000; mix-blend-mode:screen;
-    }
-    .cursor-ring {
-      width:36px; height:36px;
-      border:1px solid rgba(0,212,255,.4); border-radius:50%;
-      position:fixed; pointer-events:none;
-      transform:translate(-50%,-50%);
-      transition:width .3s,height .3s;
-      z-index:9999;
-    }
+    /* ── CURSOR ── */
+    .cursor { width:12px; height:12px; border:1.5px solid var(--cyan); border-radius:50%; position:fixed; pointer-events:none; transform:translate(-50%,-50%); transition:width .2s,height .2s,background .2s; z-index:10000; mix-blend-mode:screen; }
+    .cursor-ring { width:36px; height:36px; border:1px solid rgba(0,212,255,.4); border-radius:50%; position:fixed; pointer-events:none; transform:translate(-50%,-50%); transition:width .3s,height .3s; z-index:9999; }
 
-    /* ─── STARFIELD ─── */
-    #starfield {
-      position:fixed; inset:0;
-      width:100%; height:100%;
-      z-index:0; pointer-events:none;
-    }
+    /* ── STARFIELD ── */
+    #starfield { position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
 
-    /* ─── GRID ─── */
-    body::before {
-      content:'';
-      position:fixed; inset:0;
-      background-image:
-        linear-gradient(var(--grid-line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-      background-size:60px 60px;
-      z-index:1; pointer-events:none;
-    }
+    /* ── GRID ── */
+    body::before { content:''; position:fixed; inset:0; background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px); background-size:60px 60px; z-index:1; pointer-events:none; }
 
-    /* ─── NAV ─── */
-    header {
-      position:fixed; top:0; width:100%;
-      z-index:1000;
-      backdrop-filter:blur(18px);
-      background:rgba(2,4,9,.75);
-      border-bottom:1px solid rgba(0,212,255,.1);
-    }
-    .navbar {
-      max-width:1300px; margin:0 auto;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:0 2rem; height:64px;
-    }
-    .brand {
-      font-family:'Orbitron', monospace;
-      font-size:1.1rem; font-weight:900; letter-spacing:.25em;
-      color:var(--cyan);
-      text-shadow:0 0 20px var(--cyan-glow);
-      text-decoration:none;
-    }
+    /* ── NAV ── */
+    header { position:fixed; top:0; width:100%; z-index:1000; backdrop-filter:blur(18px); background:rgba(2,4,9,.75); border-bottom:1px solid rgba(0,212,255,.1); }
+    .navbar { max-width:1300px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:0 2rem; height:64px; }
+    .brand { font-family:'Orbitron',monospace; font-size:1.1rem; font-weight:900; letter-spacing:.25em; color:var(--cyan); text-shadow:0 0 20px var(--cyan-glow); text-decoration:none; }
     .brand::after { content:'_'; animation:blink 1s step-end infinite; color:var(--magenta); }
     @keyframes blink { 50%{opacity:0} }
 
     .nav-links { display:flex; list-style:none; gap:2.5rem; }
-    .nav-links a {
-      font-family:'Orbitron', monospace;
-      font-size:.6rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
-      color:var(--text-body); text-decoration:none;
-      transition:color .3s;
-      position:relative;
-    }
+    .nav-links a { font-family:'Orbitron',monospace; font-size:.65rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--text-body); text-decoration:none; transition:color .3s; }
     .nav-links a::before { content:'> '; color:var(--cyan); opacity:0; transition:opacity .2s; }
     .nav-links a:hover, .nav-links a.active { color:var(--cyan); }
     .nav-links a:hover::before, .nav-links a.active::before { opacity:1; }
-    .nav-links a.active { text-shadow:0 0 12px var(--cyan-glow); }
 
-    .nav-toggle {
-      display:none;
-      background:none; border:1px solid var(--cyan);
-      color:var(--cyan); padding:.3rem .6rem;
-      font-size:1.1rem; cursor:none;
-      font-family:'Orbitron', monospace;
-    }
+    .nav-toggle { display:none; background:none; border:1px solid var(--cyan); color:var(--cyan); padding:.3rem .6rem; font-size:1.1rem; cursor:none; font-family:'Orbitron',monospace; }
 
-    /* ─── SECTIONS ─── */
     section, .section-wrap { position:relative; z-index:2; }
 
-    /* ─── HERO ─── */
-    .hero-section {
-      min-height:72vh;
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      text-align:center;
-      padding:8rem 2rem 4rem;
-      overflow:hidden;
-    }
+    /* ── HERO ── */
+    .hero-section { min-height:72vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:8rem 2rem 4rem; overflow:hidden; }
+    .hero-eyebrow { font-family:'Orbitron',monospace; font-size:.7rem; letter-spacing:.45em; text-transform:uppercase; color:var(--magenta); margin-bottom:1.2rem; opacity:0; animation:fadeUp .8s .2s forwards; }
+    .hero-title { font-family:'Orbitron',monospace; font-size:clamp(2.4rem,6vw,5.5rem); font-weight:900; letter-spacing:.04em; line-height:1.05; background:linear-gradient(135deg,var(--star-white) 0%,var(--cyan) 55%,var(--magenta) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 40px rgba(0,212,255,.22)); opacity:0; animation:fadeUp .9s .4s forwards; }
+    .hero-sub { margin-top:1.4rem; font-size:1rem; font-weight:300; font-style:italic; color:var(--text-body); letter-spacing:.07em; max-width:560px; opacity:0; animation:fadeUp .9s .6s forwards; }
+    .hero-tags { display:flex; gap:.7rem; flex-wrap:wrap; justify-content:center; margin-top:2.2rem; opacity:0; animation:fadeUp .9s .8s forwards; }
+    .tag { font-family:'Orbitron',monospace; font-size:.6rem; letter-spacing:.13em; text-transform:uppercase; padding:.38rem 1rem; border:1px solid rgba(0,212,255,.28); color:var(--cyan); background:var(--cyan-dim); clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); }
+    .tag.mag { border-color:rgba(255,45,120,.28); color:var(--magenta); background:var(--mag-dim); }
 
-    .hero-eyebrow {
-      font-family:'Orbitron', monospace;
-      font-size:.6rem; letter-spacing:.45em; text-transform:uppercase;
-      color:var(--magenta); margin-bottom:1.2rem;
-      opacity:0; animation:fadeUp .8s .2s forwards;
-    }
-
-    .hero-title {
-      font-family:'Orbitron', monospace;
-      font-size:clamp(2.4rem, 6vw, 5.5rem);
-      font-weight:900; letter-spacing:.04em; line-height:1.05;
-      background:linear-gradient(135deg, var(--star-white) 0%, var(--cyan) 55%, var(--magenta) 100%);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      background-clip:text;
-      filter:drop-shadow(0 0 40px rgba(0,212,255,.22));
-      opacity:0; animation:fadeUp .9s .4s forwards;
-    }
-
-    .hero-sub {
-      margin-top:1.4rem;
-      font-size:.95rem; font-weight:300; font-style:italic;
-      color:var(--text-body); letter-spacing:.07em; max-width:540px;
-      opacity:0; animation:fadeUp .9s .6s forwards;
-    }
-
-    .hero-tags {
-      display:flex; gap:.7rem; flex-wrap:wrap;
-      justify-content:center; margin-top:2.2rem;
-      opacity:0; animation:fadeUp .9s .8s forwards;
-    }
-    .tag {
-      font-family:'Orbitron', monospace;
-      font-size:.55rem; letter-spacing:.13em; text-transform:uppercase;
-      padding:.38rem 1rem;
-      border:1px solid rgba(0,212,255,.28);
-      color:var(--cyan); background:var(--cyan-dim);
-      clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
-    }
-    .tag.mag {
-      border-color:rgba(255,45,120,.28);
-      color:var(--magenta); background:var(--mag-dim);
-    }
-
-    /* Decorative corner brackets */
-    .hero-bracket {
-      position:absolute;
-      width:60px; height:60px;
-      opacity:.25; pointer-events:none;
-    }
+    .hero-bracket { position:absolute; width:60px; height:60px; opacity:.25; pointer-events:none; }
     .hero-bracket-tl { top:5rem; left:3rem; border-top:1px solid var(--cyan); border-left:1px solid var(--cyan); }
     .hero-bracket-tr { top:5rem; right:3rem; border-top:1px solid var(--cyan); border-right:1px solid var(--cyan); }
     .hero-bracket-bl { bottom:2rem; left:3rem; border-bottom:1px solid var(--magenta); border-left:1px solid var(--magenta); }
     .hero-bracket-br { bottom:2rem; right:3rem; border-bottom:1px solid var(--magenta); border-right:1px solid var(--magenta); }
 
-    @keyframes fadeUp {
-      from{opacity:0;transform:translateY(28px)}
-      to{opacity:1;transform:translateY(0)}
-    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
 
-    /* ─── SECTION DIVIDER ─── */
-    .section-divider {
-      display:flex; align-items:center; gap:1rem;
-      max-width:1300px; margin:0 auto;
-      padding:0 2rem; position:relative; z-index:2;
-    }
-    .section-divider::before, .section-divider::after {
-      content:''; flex:1; height:1px;
-      background:linear-gradient(90deg, transparent, rgba(0,212,255,.28), transparent);
-    }
-    .section-divider span {
-      font-family:'Orbitron', monospace;
-      font-size:.5rem; letter-spacing:.3em; text-transform:uppercase;
-      color:rgba(0,212,255,.4); white-space:nowrap;
-    }
+    /* ── DIVIDER ── */
+    .section-divider { display:flex; align-items:center; gap:1rem; max-width:1300px; margin:0 auto; padding:0 2rem; position:relative; z-index:2; }
+    .section-divider::before, .section-divider::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(0,212,255,.28),transparent); }
+    .section-divider span { font-family:'Orbitron',monospace; font-size:.55rem; letter-spacing:.3em; text-transform:uppercase; color:rgba(0,212,255,.4); white-space:nowrap; }
 
-    /* ─── ABOUT STRIP ─── */
-    .about-strip {
-      max-width:1300px; margin:0 auto;
-      padding:4rem 2rem;
-      display:flex; gap:3rem; align-items:center;
-      flex-wrap:wrap;
-    }
-    .about-strip p {
-      flex:1; min-width:280px;
-      font-size:.9rem; line-height:1.9; color:var(--text-body); font-weight:300;
-    }
-    .stat-row {
-      display:flex; gap:2rem; flex-wrap:wrap;
-    }
-    .stat-box {
-      background:var(--card-bg);
-      border:1px solid var(--border-dim);
-      padding:1.2rem 1.8rem; text-align:center;
-      clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
-    }
-    .stat-num {
-      font-family:'Orbitron', monospace;
-      font-size:1.8rem; font-weight:900; color:var(--cyan);
-      text-shadow:0 0 20px var(--cyan-glow); display:block;
-    }
-    .stat-label {
-      font-family:'Orbitron', monospace;
-      font-size:.5rem; letter-spacing:.2em; text-transform:uppercase;
-      color:var(--text-body); margin-top:.2rem;
-    }
+    /* ── ABOUT STRIP ── */
+    .about-strip { max-width:1300px; margin:0 auto; padding:4rem 2rem; display:flex; gap:3rem; align-items:center; flex-wrap:wrap; }
+    .about-strip p { flex:1; min-width:280px; font-size:1rem; line-height:1.9; color:var(--text-body); font-weight:300; }
+    .stat-row { display:flex; gap:2rem; flex-wrap:wrap; }
+    .stat-box { background:var(--card-bg); border:1px solid rgba(0,212,255,.18); padding:1.2rem 1.8rem; text-align:center; clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%); }
+    .stat-num { font-family:'Orbitron',monospace; font-size:1.8rem; font-weight:900; color:var(--cyan); text-shadow:0 0 20px var(--cyan-glow); display:block; }
+    .stat-label { font-family:'Orbitron',monospace; font-size:.55rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text-body); margin-top:.2rem; }
 
-    /* ─── FILTER BAR ─── */
-    .filter-wrap {
-      max-width:1300px; margin:0 auto;
-      padding:0 2rem 2.5rem;
-      display:flex; gap:.6rem; flex-wrap:wrap; align-items:center;
-      position:relative; z-index:2;
-    }
-    .filter-label {
-      font-family:'Orbitron', monospace;
-      font-size:.55rem; letter-spacing:.25em; text-transform:uppercase;
-      color:rgba(0,212,255,.4); margin-right:.4rem;
-    }
-    .filter-btn {
-      font-family:'Orbitron', monospace;
-      font-size:.55rem; letter-spacing:.13em; text-transform:uppercase;
-      padding:.35rem .9rem;
-      border:1px solid rgba(0,212,255,.2);
-      color:var(--text-body); background:transparent;
-      cursor:none; transition:all .25s;
-    }
-    .filter-btn:hover, .filter-btn.active {
-      border-color:var(--cyan);
-      color:var(--cyan); background:var(--cyan-dim);
-      box-shadow:0 0 14px rgba(0,212,255,.15);
-    }
+    /* ── FILTER ── */
+    .filter-wrap { max-width:1300px; margin:0 auto; padding:0 2rem 2.5rem; display:flex; gap:.6rem; flex-wrap:wrap; align-items:center; position:relative; z-index:2; }
+    .filter-label { font-family:'Orbitron',monospace; font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(0,212,255,.4); margin-right:.4rem; }
+    .filter-btn { font-family:'Orbitron',monospace; font-size:.6rem; letter-spacing:.13em; text-transform:uppercase; padding:.35rem .9rem; border:1px solid rgba(0,212,255,.2); color:var(--text-body); background:transparent; cursor:none; transition:all .25s; }
+    .filter-btn:hover, .filter-btn.active { border-color:var(--cyan); color:var(--cyan); background:var(--cyan-dim); box-shadow:0 0 14px rgba(0,212,255,.15); }
 
-    /* ─── PROJECT GRID ─── */
-    .projects-wrap {
-      max-width:1300px; margin:0 auto;
-      padding:0 2rem 7rem;
-      position:relative; z-index:2;
-    }
+    /* ── PROJECT GRID ── */
+    .projects-wrap { max-width:1300px; margin:0 auto; padding:0 2rem 7rem; position:relative; z-index:2; }
+    .project-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1.4rem; }
 
-    .project-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));
-      gap:1.4rem;
-      justify-content: center;
-    }
-
-    /* ─── PROJECT CARD ─── */
-    .project-card {
-      background:var(--card-bg);
-      border:1px solid var(--border-dim);
-      position:relative; overflow:hidden;
-      display:flex; flex-direction:column;
-      transition:border-color .35s, transform .35s, box-shadow .35s;
-    }
-    .project-card::before {
-      content:'';
-      position:absolute; top:0; left:0;
-      width:100%; height:2px;
-      background:linear-gradient(90deg, var(--cyan), var(--magenta));
-      opacity:0; transition:opacity .35s;
-    }
-    .project-card:hover {
-      border-color:rgba(0,212,255,.35);
-      transform:translateY(-5px);
-      box-shadow:0 20px 60px rgba(0,0,0,.4), 0 0 40px rgba(0,212,255,.07);
-    }
+    /* ── PROJECT CARD ── */
+    .project-card { background:var(--card-bg); border:1px solid rgba(0,212,255,.18); position:relative; overflow:hidden; display:flex; flex-direction:column; transition:border-color .35s,transform .35s,box-shadow .35s; cursor:none; }
+    .project-card::before { content:''; position:absolute; top:0; left:0; width:100%; height:2px; background:linear-gradient(90deg,var(--cyan),var(--magenta)); opacity:0; transition:opacity .35s; }
+    .project-card:hover { border-color:rgba(0,212,255,.35); transform:translateY(-5px); box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 40px rgba(0,212,255,.07); }
     .project-card:hover::before { opacity:1; }
 
-    /* Card image placeholder */
-    .card-visual {
-      width:100%; height:180px;
-      position:relative; overflow:hidden;
-      background:var(--deep);
-      display:flex; align-items:center; justify-content:center;
-    }
-
-    .vis-2 .card-visual,
-    .vis-3 .card-visual,
-    .vis-4 .card-visual {
-      height: 220px;
-    }
-    .card-visual-bg {
-      position:absolute; inset:0;
-      opacity:.5;
-      transition:opacity .4s, transform .4s;
-    }
+    .card-visual { width:100%; height:220px; position:relative; overflow:hidden; background:var(--deep); display:flex; align-items:center; justify-content:center; }
+    .card-visual-bg { position:absolute; inset:0; opacity:.5; transition:opacity .4s,transform .4s; }
     .project-card:hover .card-visual-bg { opacity:.8; transform:scale(1.04); }
 
-    /* Gradient variants */
-    .vis-1 .card-visual-bg { background:radial-gradient(ellipse at 30% 60%, rgba(0,212,255,.25) 0%, transparent 65%), radial-gradient(ellipse at 80% 20%, rgba(255,45,120,.15) 0%, transparent 60%); }
-    .vis-2 .card-visual-bg { background:radial-gradient(ellipse at 70% 50%, rgba(255,209,102,.2) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(0,212,255,.12) 0%, transparent 55%); }
-    .vis-3 .card-visual-bg { background:radial-gradient(ellipse at 50% 30%, rgba(255,45,120,.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(0,212,255,.1) 0%, transparent 55%); }
-    .vis-4 .card-visual-bg { background:radial-gradient(ellipse at 20% 40%, rgba(0,212,255,.2) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, rgba(255,209,102,.15) 0%, transparent 55%); }
+    .vis-1 .card-visual-bg { background:radial-gradient(ellipse at 30% 60%,rgba(0,212,255,.25) 0%,transparent 65%),radial-gradient(ellipse at 80% 20%,rgba(255,45,120,.15) 0%,transparent 60%); }
+    .vis-2 .card-visual-bg { background:radial-gradient(ellipse at 70% 50%,rgba(255,209,102,.2) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(0,212,255,.12) 0%,transparent 55%); }
+    .vis-3 .card-visual-bg { background:radial-gradient(ellipse at 50% 30%,rgba(255,45,120,.25) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(0,212,255,.1) 0%,transparent 55%); }
 
-    .card-visual-icon {
-      font-size:2.5rem; position:relative; z-index:1;
-      filter:drop-shadow(0 0 16px var(--cyan));
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .card-visual-num {
-      position:absolute; bottom:.6rem; right:.8rem;
-      font-family:'Orbitron', monospace;
-      font-size:3rem; font-weight:900;
-      color:rgba(255,255,255,.04); line-height:1;
-      pointer-events:none;
-    }
+    .card-visual img { width:100%; height:100%; object-fit:cover; transition:transform .4s; position:relative; z-index:1; }
+    .project-card:hover .card-visual img { transform:scale(1.04); }
 
-    /* Status badge */
-    .card-status {
-      position:absolute; top:.8rem; left:.8rem;
-      font-family:'Orbitron', monospace;
-      font-size:.5rem; letter-spacing:.15em; text-transform:uppercase;
-      padding:.25rem .7rem;
-      border:1px solid;
-      backdrop-filter:blur(8px);
-    }
+    .card-visual-num { position:absolute; bottom:.6rem; right:.8rem; font-family:'Orbitron',monospace; font-size:3rem; font-weight:900; color:rgba(255,255,255,.04); line-height:1; pointer-events:none; z-index:2; }
+
+    .card-status { position:absolute; top:.8rem; left:.8rem; z-index:3; font-family:'Orbitron',monospace; font-size:.55rem; letter-spacing:.15em; text-transform:uppercase; padding:.25rem .7rem; border:1px solid; backdrop-filter:blur(8px); }
     .status-live   { color:#39ff88; border-color:rgba(57,255,136,.4); background:rgba(57,255,136,.08); }
     .status-wip    { color:var(--gold); border-color:rgba(255,209,102,.4); background:rgba(255,209,102,.08); }
     .status-concept{ color:var(--text-body); border-color:rgba(168,200,232,.2); background:rgba(168,200,232,.05); }
 
-    .card-body { padding:1.6rem; flex:1; display:flex; flex-direction:column; text-align: center; }
+    .card-body { padding:1.6rem; flex:1; display:flex; flex-direction:column; }
+    .card-category { font-family:'Orbitron',monospace; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--magenta); margin-bottom:.6rem; }
+    .card-title { font-family:'Orbitron',monospace; font-size:1rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--star-white); margin-bottom:.8rem; line-height:1.3; }
+    .card-desc { font-size:.9rem; color:var(--text-body); line-height:1.75; font-weight:300; flex:1; }
 
-    .card-category {
-      font-family:'Orbitron', monospace;
-      font-size:.5rem; letter-spacing:.2em; text-transform:uppercase;
-      color:var(--magenta); margin-bottom:.6rem;
-    }
+    .card-tech { display:flex; gap:.4rem; flex-wrap:wrap; margin-top:1.2rem; }
+    .tech-chip { font-family:'Orbitron',monospace; font-size:.52rem; letter-spacing:.1em; text-transform:uppercase; padding:.22rem .6rem; border:1px solid rgba(0,212,255,.2); color:rgba(0,212,255,.7); background:rgba(0,212,255,.05); }
+    .tech-chip.gold { border-color:rgba(255,209,102,.2); color:rgba(255,209,102,.7); background:rgba(255,209,102,.05); }
 
-    .card-title {
-      font-family:'Orbitron', monospace;
-      font-size:.9rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
-      color:var(--star-white); margin-bottom:.8rem; line-height:1.3;
-    }
+    .card-footer { display:flex; align-items:center; justify-content:flex-end; margin-top:1.4rem; padding-top:1rem; border-top:1px solid rgba(0,212,255,.08); }
 
-    .card-desc {
-      font-size:.85rem; color:var(--text-body);
-      line-height:1.75; font-weight:300; flex:1;
-    }
+    /* ── VIEW DETAILS BTN ── */
+    .btn-view-details { font-family:'Orbitron',monospace; font-size:.58rem; letter-spacing:.15em; text-transform:uppercase; color:var(--void); background:linear-gradient(135deg,var(--cyan),#0aaa4a); padding:.42rem 1.1rem; border:none; cursor:none; clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%); transition:filter .2s,transform .2s; box-shadow:0 0 18px rgba(18,234,101,.25); }
+    .btn-view-details:hover { filter:brightness(1.2); transform:translateY(-1px); box-shadow:0 0 28px rgba(18,234,101,.4); }
 
-    .card-tech {
-      display:flex; gap:.4rem; flex-wrap:wrap; margin-top:1.2rem;
-      justify-content: center;
-    }
-    .tech-chip {
-      font-family:'Orbitron', monospace;
-      font-size:.48rem; letter-spacing:.1em; text-transform:uppercase;
-      padding:.22rem .6rem;
-      border:1px solid rgba(0,212,255,.2);
-      color:rgba(0,212,255,.7); background:rgba(0,212,255,.05);
-    }
-    .tech-chip.gold {
-      border-color:rgba(255,209,102,.2);
-      color:rgba(255,209,102,.7); background:rgba(255,209,102,.05);
-    }
-
-    .card-footer {
-      display:flex; align-items:center; justify-content:center;
-      margin-top:1.4rem; padding-top:1rem;
-      border-top:1px solid rgba(0,212,255,.08);
-    }
-    .card-link {
-      font-family:'Orbitron', monospace;
-      font-size:.55rem; letter-spacing:.15em; text-transform:uppercase;
-      color:var(--cyan); text-decoration:none;
-      border-bottom:1px solid transparent;
-      transition:border-color .2s;
-    }
-    .card-link:hover { border-color:var(--cyan); }
-    .card-link::after { content:' →'; }
-
-    .card-link-ghost {
-      font-family:'Orbitron', monospace;
-      font-size:.55rem; letter-spacing:.15em; text-transform:uppercase;
-      color:rgba(168,200,232,.35); text-decoration:none; cursor:default;
-    }
-
-    /* ─── FEATURED CARD (wide) ─── */
-    .project-card.featured {
-      grid-column: span 2;
-      flex-direction:row;
-    }
-    .project-card.featured .card-visual {
-      width:320px; min-width:280px; height:auto;
-      flex-shrink:0;
-    }
-    .project-card.featured .card-visual-num { font-size:5rem; }
-
-    /* ─── CONTACT CTA ─── */
-    .cta-section {
-      max-width:1300px; margin:0 auto;
-      padding:0 2rem 8rem;
-      position:relative; z-index:2;
-      text-align:center;
-    }
-    .cta-box {
-      border:1px solid rgba(0,212,255,.15);
-      padding:4rem 2rem;
-      background:var(--card-bg);
-      position:relative; overflow:hidden;
-    }
-    .cta-box::before {
-      content:'';
-      position:absolute; inset:0;
-      background:radial-gradient(ellipse at 50% 0%, rgba(0,212,255,.07) 0%, transparent 70%);
-      pointer-events:none;
-    }
-    .cta-box h2 {
-      font-family:'Orbitron', monospace;
-      font-size:clamp(1.4rem,3vw,2.2rem); font-weight:900;
-      color:var(--star-white); margin-bottom:1rem;
-    }
-    .cta-box p {
-      font-size:.9rem; color:var(--text-body); font-weight:300;
-      line-height:1.8; max-width:480px; margin:0 auto 2rem;
-    }
-    .btn-primary {
-      font-family:'Orbitron', monospace;
-      font-size:.65rem; letter-spacing:.2em; text-transform:uppercase;
-      color:var(--void);
-      background:linear-gradient(135deg,var(--cyan),#0099bb);
-      padding:.9rem 2.5rem; display:inline-block;
-      clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
-      transition:filter .3s,transform .3s;
-      box-shadow:0 0 30px rgba(0,212,255,.28);
-      text-decoration:none;
-      height: 40px; line-height: 40px;
-    }
+    /* ── CTA ── */
+    .cta-section { max-width:1300px; margin:0 auto; padding:0 2rem 8rem; position:relative; z-index:2; text-align:center; }
+    .cta-box { border:1px solid rgba(0,212,255,.15); padding:4rem 2rem; background:var(--card-bg); position:relative; overflow:hidden; }
+    .cta-box::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 0%,rgba(0,212,255,.07) 0%,transparent 70%); pointer-events:none; }
+    .cta-box h2 { font-family:'Orbitron',monospace; font-size:clamp(1.4rem,3vw,2.2rem); font-weight:900; color:var(--star-white); margin-bottom:1rem; }
+    .cta-box p { font-size:1rem; color:var(--text-body); font-weight:300; line-height:1.8; max-width:480px; margin:0 auto 2rem; }
+    .btn-primary { font-family:'Orbitron',monospace; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--void); background:linear-gradient(135deg,var(--cyan),#0099bb); padding:.9rem 2.5rem; display:inline-block; clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%); transition:filter .3s,transform .3s; box-shadow:0 0 30px rgba(0,212,255,.28); text-decoration:none; }
     .btn-primary:hover { filter:brightness(1.2); transform:translateY(-2px); box-shadow:0 0 50px rgba(0,212,255,.45); }
 
-    /* ─── FOOTER ─── */
-    footer {
-      position:relative; z-index:2;
-      border-top:1px solid rgba(0,212,255,.08);
-      padding:2rem;
-    }
-    .footer-inner {
-      max-width:1300px; margin:0 auto;
-      display:flex; justify-content:space-between; align-items:center;
-      flex-wrap:wrap; gap:1rem;
-    }
-    .footer-brand {
-      font-family:'Orbitron', monospace;
-      font-size:.9rem; font-weight:900; letter-spacing:.3em;
-      color:var(--cyan); text-shadow:0 0 15px var(--cyan-glow);
-    }
-    .footer-copy, .footer-coords {
-      font-family:'Orbitron', monospace; letter-spacing:.1em;
-      font-size:.65rem; color:rgba(168,200,232,.35);
-    }
+    /* ── FOOTER ── */
+    footer { position:relative; z-index:2; border-top:1px solid rgba(0,212,255,.12); padding:2rem; }
+    .footer-inner { max-width:1300px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
+    .footer-brand { font-family:'Orbitron',monospace; font-size:.9rem; font-weight:900; letter-spacing:.3em; color:var(--cyan); text-shadow:0 0 15px var(--cyan-glow); }
+    .footer-copy, .footer-coords { font-family:'Orbitron',monospace; letter-spacing:.1em; font-size:.65rem; color:rgba(168,200,232,.35); }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width:900px) {
-      .project-card.featured { grid-column:span 1; flex-direction:column; }
-      .project-card.featured .card-visual { width:100%; height:180px; }
-    }
+    /* ════════════════════════════════
+       MODAL SYSTEM
+    ════════════════════════════════ */
+    .modal-backdrop { position:fixed; inset:0; z-index:5000; background:rgba(4,12,8,.85); backdrop-filter:blur(14px) saturate(0.6); display:flex; align-items:center; justify-content:center; padding:1.5rem; opacity:0; pointer-events:none; transition:opacity .35s ease; }
+    .modal-backdrop.open { opacity:1; pointer-events:auto; }
+
+    .modal { position:relative; max-width:800px; width:100%; max-height:90vh; overflow-y:auto; background:linear-gradient(145deg,rgba(7,40,28,.97) 0%,rgba(9,23,18,.99) 100%); border:1px solid rgba(18,234,101,.25); box-shadow:0 0 0 1px rgba(18,234,101,.06),0 30px 80px rgba(0,0,0,.7),0 0 60px rgba(18,234,101,.08),inset 0 1px 0 rgba(18,234,101,.12); transform:translateY(32px) scale(0.97); transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .35s ease; opacity:0; }
+    .modal-backdrop.open .modal { transform:translateY(0) scale(1); opacity:1; }
+    .modal::-webkit-scrollbar { width:4px; }
+    .modal::-webkit-scrollbar-track { background:transparent; }
+    .modal::-webkit-scrollbar-thumb { background:rgba(18,234,101,.3); border-radius:2px; }
+
+    .modal::before,.modal::after { content:''; position:absolute; width:24px; height:24px; pointer-events:none; z-index:1; }
+    .modal::before { top:0; left:0; border-top:1px solid var(--cyan); border-left:1px solid var(--cyan); }
+    .modal::after { bottom:0; right:0; border-bottom:1px solid var(--magenta); border-right:1px solid var(--magenta); }
+
+    .modal-scanline { position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(18,234,101,.5),transparent); animation:scanDown 3s ease-in-out infinite; pointer-events:none; z-index:2; }
+    @keyframes scanDown { 0%{top:0;opacity:1} 80%{top:100%;opacity:.4} 100%{top:100%;opacity:0} }
+
+    .modal-topbar { height:2px; background:linear-gradient(90deg,var(--cyan),var(--magenta),var(--cyan)); background-size:200% 100%; animation:shimmer 3s linear infinite; }
+    @keyframes shimmer { to{background-position:-200% 0} }
+
+    .modal-hero { position:relative; height:220px; overflow:hidden; background:var(--deep); }
+    .modal-hero img { width:100%; height:100%; object-fit:cover; opacity:.88; }
+    .modal-hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,transparent 40%,rgba(7,40,28,.95) 100%); }
+    .modal-hero-num { position:absolute; bottom:.8rem; right:1rem; font-family:'Orbitron',monospace; font-size:5rem; font-weight:900; color:rgba(255,255,255,.04); line-height:1; pointer-events:none; }
+
+    .modal-inner { padding:2rem 2.4rem 2.4rem; }
+    .modal-meta { display:flex; align-items:center; gap:1rem; margin-bottom:1.2rem; flex-wrap:wrap; }
+    .modal-category { font-family:'Orbitron',monospace; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--magenta); }
+    .modal-divider-line { width:1px; height:14px; background:rgba(0,212,255,.2); }
+
+    .modal-title { font-family:'Orbitron',monospace; font-size:clamp(1.1rem,3vw,1.7rem); font-weight:900; letter-spacing:.06em; text-transform:uppercase; color:var(--star-white); margin-bottom:1.4rem; line-height:1.2; }
+    .modal-title span { color:var(--cyan); text-shadow:0 0 20px rgba(18,234,101,.4); }
+
+    .modal-body-text { font-size:1rem; color:var(--text-body); line-height:1.85; font-weight:300; margin-bottom:1.8rem; }
+
+    .modal-info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px; background:rgba(18,234,101,.08); border:1px solid rgba(18,234,101,.1); margin-bottom:1.8rem; }
+    .modal-info-cell { padding:.9rem 1.2rem; background:rgba(7,40,28,.6); }
+    .modal-info-label { font-family:'Orbitron',monospace; font-size:.5rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(0,212,255,.45); margin-bottom:.35rem; }
+    .modal-info-val { font-family:'Orbitron',monospace; font-size:.75rem; letter-spacing:.05em; color:var(--star-white); font-weight:600; }
+
+    .modal-tech-heading { font-family:'Orbitron',monospace; font-size:.55rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(0,212,255,.45); margin-bottom:.8rem; }
+    .modal-tech-list { display:flex; gap:.5rem; flex-wrap:wrap; }
+
+    .modal-close { position:absolute; top:1rem; right:1rem; z-index:10; width:34px; height:34px; background:rgba(9,23,18,.8); border:1px solid rgba(18,234,101,.25); color:var(--text-body); font-size:.9rem; cursor:none; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+    .modal-close:hover { border-color:rgba(255,45,120,.5); color:var(--magenta); background:rgba(255,45,120,.08); box-shadow:0 0 16px rgba(255,45,120,.2); }
+    .modal-close-hint { position:absolute; bottom:-.3rem; right:0; font-family:'Orbitron',monospace; font-size:.38rem; letter-spacing:.1em; color:rgba(168,200,232,.25); white-space:nowrap; }
+
+    /* ── RESPONSIVE ── */
     @media (max-width:768px) {
       .nav-toggle { display:block; }
-      .nav-links {
-        display:none; position:absolute; top:64px; left:0; right:0;
-        background:rgba(2,4,9,.97);
-        border-bottom:1px solid rgba(0,212,255,.1);
-        flex-direction:column; align-items:center;
-        gap:0; padding:1.5rem 0;
-      }
+      .nav-links { display:none; position:absolute; top:64px; left:0; right:0; background:rgba(2,4,9,.97); border-bottom:1px solid rgba(0,212,255,.1); flex-direction:column; align-items:center; gap:0; padding:1.5rem 0; }
       .nav-links.open { display:flex; }
       .nav-links li { width:100%; text-align:center; padding:.8rem 0; }
       .project-grid { grid-template-columns:1fr; }
       .footer-inner { flex-direction:column; text-align:center; }
       .hero-bracket { display:none; }
-    }
-
-    .card-visual img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .card-visual img:hover {
-      transform: scale(1.05);
-    }
-
-    .vis-2 .card-visual img,
-    .vis-3 .card-visual img,
-    .vis-4 .card-visual img {
-      border: 3px solid var(--cyan);
-      border-radius: 8px;
-    }
-
-    /* ─── MODAL ─── */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 10000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(2, 4, 9, 0.9);
-      backdrop-filter: blur(10px);
-    }
-
-    .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 90%;
-      max-height: 90%;
-      object-fit: contain;
-    }
-
-    .close {
-      position: absolute;
-      top: 15px;
-      right: 35px;
-      color: var(--star-white);
-      font-size: 40px;
-      font-weight: bold;
-      cursor: none;
-      transition: color 0.3s;
-    }
-
-    .close:hover,
-    .close:focus {
-      color: var(--cyan);
+      .modal-inner { padding:1.4rem 1.6rem 1.8rem; }
+      .modal-hero { height:160px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Cursors -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-
-<!-- Starfield -->
 <canvas id="starfield"></canvas>
 
-<!-- ─── NAV ─── -->
+<!-- NAV -->
 <header>
   <nav class="navbar">
     <a href="index.html" class="brand">GillzSkywalker</a>
@@ -576,7 +229,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html#about">About</a></li>
       <li><a href="#projects" class="active">Projects</a></li>
-      <li><a href="index.html#filter">SSkills</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
   </nav>
@@ -584,134 +237,121 @@
 
 <main>
 
-  <!-- ─── HERO ─── -->
+  <!-- HERO -->
   <section id="hero" class="hero-section">
     <div class="hero-bracket hero-bracket-tl"></div>
     <div class="hero-bracket hero-bracket-tr"></div>
     <div class="hero-bracket hero-bracket-bl"></div>
     <div class="hero-bracket hero-bracket-br"></div>
-
     <p class="hero-eyebrow">Mission Archive // Work Log Active</p>
-    <h1 class="hero-title">BSc Creative computing Year 3<br>Projects</h1>
-    <p class="hero-sub">These projects explained and examined. It's just all about full stack web development, Tomorrow's web then machine learning with Python by using kaggle. This projet is more on creating 
-      a software and website that can collect data and such information. 
-    </p>
+    <h1 class="hero-title">BSc Creative Computing Year 3<br>Projects</h1>
+    <p class="hero-sub">Full stack web development, Tomorrow's Web, and machine learning with Python and Kaggle — building software that collects, analyses, and presents data.</p>
     <div class="hero-tags">
-      <span class="tag">Front-End Dev and back-end developer full </span>
-      <span class="tag">Machine Learning.</span>
-  
+      <span class="tag">Full Stack Development</span>
+      <span class="tag mag">Machine Learning</span>
     </div>
   </section>
 
-  <!-- ─── ABOUT STRIP ─── -->
   <div class="section-divider"><span>Sector 01 // Bio Data</span></div>
 
   <div class="section-wrap about-strip">
     <p>
-This project showcases the full stack website and more focused on collecting something and some information of the series of manga and comics. 
-In the other hand, this showcases more and usage on databases and information to collect when creating a website. So far this website helps and influences people around 
-who are interested of things.  <br><br>
+      This showcase highlights full stack projects and data-driven applications from Year 3. Focused on collecting, managing, and presenting information — from a manga and comic book tracker to chess game analysis using machine learning. Each project reflects a deeper understanding of databases, APIs, and intelligent systems.
     </p>
     <div class="stat-row">
       <div class="stat-box">
         <span class="stat-num">03</span>
         <span class="stat-label">Projects</span>
       </div>
-    
     </div>
   </div>
 
-  <!-- ─── FILTER BAR ─── -->
   <div class="section-divider"><span>Sector 02 // Mission Log</span></div>
 
   <div id="projects" class="section-wrap filter-wrap">
     <span class="filter-label">Filter //</span>
     <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="dev">Tomorrow's Web</button>
-    <button class="filter-btn" data-filter="ux">Machine Learning</button>
-
+    <button class="filter-btn" data-filter="web">Tomorrow's Web</button>
+    <button class="filter-btn" data-filter="ml">Machine Learning</button>
   </div>
 
-  <!-- ─── PROJECT GRID ─── -->
   <div class="projects-wrap">
     <div class="project-grid" id="projectGrid">
 
-    
-
-      <!-- CARD 2 -->
-      <div class="project-card vis-2" data-cat="design">
+      <!-- CARD 1: InkBit -->
+      <div class="project-card vis-2" data-cat="web" data-modal="modal-1">
         <div class="card-visual">
           <div class="card-visual-bg"></div>
-          <div class="card-visual-icon">
-            <img src="tomorrow'sweb.png" alt="Star Wars Fan Website">
-          </div>
-          <div class="card-visual-num">02</div>
+          <img src="tomorrow'sweb.png" alt="InkBit Manga Tracker">
+          <div class="card-visual-num">01</div>
           <span class="card-status status-live">● Live</span>
         </div>
         <div class="card-body">
-          <span class="card-category">Tomorrow's web</span>
-          <h3 class="card-title">InkBit - The Smartest collection tracker</h3>
-          <p class="card-desc">
-            This websit project is called InkBit, a dynamic and interactive platform comic book tracker on manga collection and comic books series. 
-              It is designed to provide users with an engaging and visually appealing way to track their manga collection, discover new series, and connect with fellow manga enthusiasts. The website features a sleek and modern design, with intuitive navigation and interactive elements that enhance the user experience.
-          </p>
+          <span class="card-category">Tomorrow's Web</span>
+          <h3 class="card-title">InkBit — The Smartest Collection Tracker</h3>
+          <p class="card-desc">A dynamic platform for tracking manga and comic book collections — featuring sleek design, interactive elements, and intuitive navigation.</p>
           <div class="card-tech">
             <span class="tech-chip gold">HTML</span>
             <span class="tech-chip gold">CSS</span>
             <span class="tech-chip">JavaScript</span>
             <span class="tech-chip">GitHub Pages</span>
-            <span class="tech-chip">Responsive Design</span>
           </div>
           <div class="card-footer">
-            <a href="#" class="card-link">View Website →</a>
-            <a href="#" class="card-link" style="color:var(--text-body)">Source Code →</a>
+            <button class="btn-view-details" onclick="openModal('modal-1')">View Details</button>
           </div>
         </div>
       </div>
 
-      <!-- CARD 3 -->
-      <div class="project-card vis-3" data-cat="ux">
+      <!-- CARD 2: Chess ML -->
+      <div class="project-card vis-3" data-cat="ml" data-modal="modal-2">
         <div class="card-visual">
           <div class="card-visual-bg"></div>
-          <div class="card-visual-icon">
-            <img src="machinelearning.png" alt="Machine Learning Project">
-          </div>
-          <div class="card-visual-num">03</div>
-          <span class="card-status status-concept">◌ Concept</span>
+          <img src="machinelearning.png" alt="Chess Game Analysis ML">
+          <div class="card-visual-num">02</div>
+          <span class="card-status status-concept">◌ Completed</span>
         </div>
         <div class="card-body">
-          <span class="card-category">Web Development 2</span>
-          <h3 class="card-title">Chess game analysis - Machine learning with kaggle</h3>
-          <p class="card-desc">
-            This project involves analyzing chess games using machine learning techniques on the Kaggle platform. It aims to identify patterns and strategies in chess gameplay.
-            In order to create this project, I used kaggle and python programming language to analyze the chess games from luchess and chess.com, 
-            I used different machine learning algorithms to analyze the data and find patterns in the chess games, such as opening strategies, common moves, and player performance. The project also includes visualizations to help understand the insights gained from the analysis.
-          </p>
+          <span class="card-category">Machine Learning</span>
+          <h3 class="card-title">Chess Game Analysis — Machine Learning with Kaggle</h3>
+          <p class="card-desc">Analysing chess games from Lichess and Chess.com using ML algorithms to uncover patterns in openings, common moves, and player performance.</p>
           <div class="card-tech">
+            <span class="tech-chip gold">Python</span>
             <span class="tech-chip gold">Kaggle</span>
-            <span class="tech-chip gold">Chess.com</span>
+            <span class="tech-chip">Data Analysis</span>
+            <span class="tech-chip">Visualisation</span>
           </div>
           <div class="card-footer">
-            <a href="#" class="card-link">View Layout →</a>
-            <span class="card-link-ghost">Completed</span>
+            <button class="btn-view-details" onclick="openModal('modal-2')">View Details</button>
           </div>
         </div>
       </div>
 
-      <!-- CARD 4 -->
-     
+      <!-- CARD 3: Coming Soon placeholder -->
+      <div class="project-card vis-1" data-cat="web" data-modal="modal-3">
+        <div class="card-visual">
+          <div class="card-visual-bg"></div>
+          <div class="card-visual-num">03</div>
+          <span class="card-status status-wip">◐ In Progress</span>
+        </div>
+        <div class="card-body">
+          <span class="card-category">Tomorrow's Web</span>
+          <h3 class="card-title">Third Mission — In Development</h3>
+          <p class="card-desc">New coordinates locked in. The third Year 3 project is currently in active development. Stay tuned for updates as this mission unfolds.</p>
+          <div class="card-tech">
+            <span class="tech-chip">Full Stack</span>
+            <span class="tech-chip gold">Coming Soon</span>
+          </div>
+          <div class="card-footer">
+            <button class="btn-view-details" onclick="openModal('modal-3')">View Details</button>
+          </div>
+        </div>
+      </div>
 
+    </div>
+  </div>
 
-      <!-- CARD 6 — Emerging Technologies -->
- 
-
-    </div><!-- /project-grid -->
-  </div><!-- /projects-wrap -->
-
-
-  <!-- ─── CTA ─── -->
+  <!-- CTA -->
   <div class="section-divider"><span>Sector 03 // Open Channel</span></div>
-
   <section class="cta-section">
     <div class="cta-box">
       <h2>Let's Build Something Extraordinary</h2>
@@ -720,25 +360,8 @@ who are interested of things.  <br><br>
     </div>
   </section>
 
+</main>
 
-  <!-- Skills sections-->
-   <section>
-    <div class="section-divider"><span>Sector 04 // Skills Matrix</span></div>
-        <div class="section-wrap about-strip">
-            <p>
-              I used different software platforms to host a website in VS code and Github pages. In game development, I used Unity and C# to create games to find assests but when i failed making one, 
-              I just made a pixel art of my assets then place it to the game while it runs. Same thing with mobile application. I used android studio and made two applications, one is a simple calculator and the other one is like a password generator. 
-              <br><br>
-            </p>
-            <!-- Placeholder for skills matrix visualization -->
-            <div style="width:100%; height:300px; background:var(--deep); display:flex; align-items:center; justify-content:center; color:rgba(168,200,232,.35);">
-                Skills Matrix Visualization Here
-            </div>
-        </div>
-   </section>
-
-
-<!-- ─── FOOTER ─── -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">GILLZ //</div>
@@ -747,181 +370,167 @@ who are interested of things.  <br><br>
   </div>
 </footer>
 
-<!-- Image Modal -->
-<div id="imageModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="modalImg">
+
+<!-- ════════════════════════════════
+     MODALS
+════════════════════════════════ -->
+
+<!-- MODAL 1: InkBit -->
+<div class="modal-backdrop" id="modal-1">
+  <div class="modal">
+    <div class="modal-scanline"></div>
+    <div class="modal-topbar"></div>
+    <button class="modal-close" onclick="closeModal('modal-1')">✕<span class="modal-close-hint">ESC</span></button>
+    <div class="modal-hero">
+      <img src="tomorrow'sweb.png" alt="InkBit Manga Tracker">
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-num">01</div>
+    </div>
+    <div class="modal-inner">
+      <div class="modal-meta">
+        <span class="modal-category">Tomorrow's Web</span>
+        <div class="modal-divider-line"></div>
+        <span class="card-status status-live" style="position:static;">● Live</span>
+      </div>
+      <h2 class="modal-title">InkBit —<br><span>The Smartest Collection Tracker</span></h2>
+      <p class="modal-body-text">
+        InkBit is a dynamic, interactive platform built for manga and comic book enthusiasts to track their collections, discover new series, and connect with fellow readers. The website features a modern, visually appealing design with intuitive navigation.
+        <br><br>
+        Built with HTML, CSS, and JavaScript and hosted on GitHub Pages, the project demonstrates full front-end development skills — responsive layout, interactive elements, and a clean user experience designed around a real-world use case.
+      </p>
+      <div class="modal-info-grid">
+        <div class="modal-info-cell"><div class="modal-info-label">Module</div><div class="modal-info-val">Tomorrow's Web</div></div>
+        <div class="modal-info-cell"><div class="modal-info-label">Year</div><div class="modal-info-val">Year 3</div></div>
+        <div class="modal-info-cell"><div class="modal-info-label">Hosting</div><div class="modal-info-val">GitHub Pages</div></div>
+        <div class="modal-info-cell"><div class="modal-info-label">Status</div><div class="modal-info-val" style="color:#39ff88;">Live</div></div>
+      </div>
+      <div class="modal-tech-heading">Tools & Tech //</div>
+      <div class="modal-tech-list">
+        <span class="tech-chip gold">HTML</span>
+        <span class="tech-chip gold">CSS</span>
+        <span class="tech-chip">JavaScript</span>
+        <span class="tech-chip">GitHub Pages</span>
+        <span class="tech-chip">Responsive Design</span>
+        <span class="tech-chip">UI / UX</span>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- MODAL 2: Chess ML -->
+<div class="modal-backdrop" id="modal-2">
+  <div class="modal">
+    <div class="modal-scanline"></div>
+    <div class="modal-topbar"></div>
+    <button class="modal-close" onclick="closeModal('modal-2')">✕<span class="modal-close-hint">ESC</span></button>
+    <div class="modal-hero">
+      <img src="machinelearning.png" alt="Chess Game Analysis">
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-num">02</div>
+    </div>
+    <div class="modal-inner">
+      <div class="modal-meta">
+        <span class="modal-category">Machine Learning</span>
+        <div class="modal-divider-line"></div>
+        <span class="card-status status-concept" style="position:static;">◌ Completed</span>
+      </div>
+      <h2 class="modal-title">Chess Game Analysis —<br><span>Machine Learning with Kaggle</span></h2>
+      <p class="modal-body-text">
+        This project analyses chess games sourced from Lichess and Chess.com using machine learning techniques on the Kaggle platform. The goal is to identify patterns in gameplay — covering opening strategies, common move sequences, and player performance metrics.
+        <br><br>
+        Multiple ML algorithms were applied to the dataset to extract insights, alongside rich visualisations to make the findings accessible and understandable. A great opportunity to combine a love of chess with data science.
+      </p>
+      <div class="modal-info-grid">
+        <div class="modal-info-cell"><div class="modal-info-label">Module</div><div class="modal-info-val">Machine Learning</div></div>
+        <div class="modal-info-cell"><div class="modal-info-label">Year</div><div class="modal-info-val">Year 3</div></div>
+        <div class="modal-info-cell"><div class="modal-info-label">Platform</div><div class="modal-info-val">Kaggle</div></div>
+        <div class="modal-info-cell"><div class="modal-info-label">Status</div><div class="modal-info-val" style="color:rgba(168,200,232,.5);">Completed</div></div>
+      </div>
+      <div class="modal-tech-heading">Tools & Tech //</div>
+      <div class="modal-tech-list">
+        <span class="tech-chip gold">Python</span>
+        <span class="tech-chip gold">Kaggle</span>
+        <span class="tech-chip">Data Analysis</span>
+        <span class="tech-chip">ML Algorithms</span>
+        <span class="tech-chip">Visualisation</span>
+        <span class="tech-chip">Chess.com API</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 3: Coming Soon -->
+<div class="modal-backdrop" id="modal-3">
+  <div class="modal">
+    <div class="modal-scanline"></div>
+    <div class="modal-topbar"></div>
+    <button class="modal-close" onclick="closeModal('modal-3')">✕<span class="modal-close-hint">ESC</span></button>
+    <div class="modal-hero" style="background:radial-gradient(ellipse at 50% 50%,rgba(0,212,255,.15) 0%,transparent 70%);">
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-num">03</div>
+    </div>
+    <div class="modal-inner">
+      <div class="modal-meta">
+        <span class="modal-category">Tomorrow's Web</span>
+        <div class="modal-divider-line"></div>
+        <span class="card-status status-wip" style="position:static;">◐ In Progress</span>
+      </div>
+ 
+      <div class="modal-tech-list">
+        <span class="tech-chip">Full Stack</span>
+        <span class="tech-chip gold">Coming Soon</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
   /* ── CURSOR ── */
-  const cursor = document.getElementById('cursor');
-  const cursorRing = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
-
-  (function tick() {
-    rx += (mx - rx) * .13;
-    ry += (my - ry) * .13;
-    cursorRing.style.left = rx + 'px';
-    cursorRing.style.top = ry + 'px';
-    requestAnimationFrame(tick);
-  })();
-
-  document.querySelectorAll('a, button, input, .filter-btn').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.width = '6px';
-      cursor.style.height = '6px';
-      cursor.style.background = 'var(--cyan)';
-      cursorRing.style.width = '52px';
-      cursorRing.style.height = '52px';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.width = '12px';
-      cursor.style.height = '12px';
-      cursor.style.background = 'transparent';
-      cursorRing.style.width = '36px';
-      cursorRing.style.height = '36px';
-    });
+  const cursor=document.getElementById('cursor'),cursorRing=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  (function tick(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cursorRing.style.left=rx+'px';cursorRing.style.top=ry+'px';requestAnimationFrame(tick);})();
+  document.querySelectorAll('a,button,.filter-btn').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cursor.style.width='6px';cursor.style.height='6px';cursor.style.background='var(--cyan)';cursorRing.style.width='52px';cursorRing.style.height='52px';});
+    el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';cursor.style.background='transparent';cursorRing.style.width='36px';cursorRing.style.height='36px';});
   });
 
   /* ── STARFIELD ── */
-  const canvas = document.getElementById('starfield');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', () => {
-    resize();
-    initStars();
-  });
-
-  function initStars() {
-    stars = [];
-    for (let i = 0; i < 280; i++) stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.4 + .2,
-      alpha: Math.random() * .8 + .2,
-      speed: Math.random() * .012 + .004,
-      twinkle: Math.random() * Math.PI * 2,
-      twinkleSpeed: Math.random() * .02 + .005,
-      color: Math.random() > .85 ? '#00d4ff' : Math.random() > .9 ? '#ff2d78' : '#e8f4ff'
-    });
-  }
+  const canvas=document.getElementById('starfield'),ctx=canvas.getContext('2d');
+  let stars=[];
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+  resize();window.addEventListener('resize',()=>{resize();initStars();});
+  function initStars(){stars=[];for(let i=0;i<280;i++)stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.4+.2,alpha:Math.random()*.8+.2,speed:Math.random()*.012+.004,twinkle:Math.random()*Math.PI*2,twinkleSpeed:Math.random()*.02+.005,color:Math.random()>.85?'#00d4ff':Math.random()>.9?'#ff2d78':'#e8f4ff'});}
   initStars();
+  const nebulas=Array.from({length:6},()=>({x:Math.random()*1400,y:Math.random()*900,r:Math.random()*220+80,color:Math.random()>.5?'rgba(0,212,255,':'rgba(255,45,120,',alpha:Math.random()*.025+.008}));
+  (function frame(){ctx.clearRect(0,0,canvas.width,canvas.height);nebulas.forEach(n=>{const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r);g.addColorStop(0,n.color+n.alpha+')');g.addColorStop(1,n.color+'0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill();});stars.forEach(s=>{s.twinkle+=s.twinkleSpeed;ctx.globalAlpha=s.alpha*(0.6+0.4*Math.sin(s.twinkle));ctx.fillStyle=s.color;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();s.y+=s.speed;if(s.y>canvas.height){s.y=0;s.x=Math.random()*canvas.width;}});ctx.globalAlpha=1;requestAnimationFrame(frame);})();
 
-  const nebulas = Array.from({ length: 6 }, () => ({
-    x: Math.random() * 1400,
-    y: Math.random() * 900,
-    r: Math.random() * 220 + 80,
-    color: Math.random() > .5 ? 'rgba(0,212,255,' : 'rgba(255,45,120,',
-    alpha: Math.random() * .025 + .008
-  }));
-
-  (function frame() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    nebulas.forEach(n => {
-      const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r);
-      g.addColorStop(0, n.color + n.alpha + ')');
-      g.addColorStop(1, n.color + '0)');
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    stars.forEach(s => {
-      s.twinkle += s.twinkleSpeed;
-      ctx.globalAlpha = s.alpha * (0.6 + 0.4 * Math.sin(s.twinkle));
-      ctx.fillStyle = s.color;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fill();
-      s.y += s.speed;
-      if (s.y > canvas.height) {
-        s.y = 0;
-        s.x = Math.random() * canvas.width;
-      }
-    });
-    ctx.globalAlpha = 1;
-    requestAnimationFrame(frame);
-  })();
-
-  /* ── NAV TOGGLE ── */
-  document.getElementById('navToggle').addEventListener('click', () => {
-    document.getElementById('navLinks').classList.toggle('open');
-  });
-  document.querySelectorAll('.nav-links a').forEach(a =>
-    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'))
-  );
+  /* ── NAV ── */
+  document.getElementById('navToggle').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
 
   /* ── FILTER ── */
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.project-card');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const f = btn.dataset.filter;
-      cards.forEach(c => {
-        const match = f === 'all' || c.dataset.cat === f;
-        c.style.transition = 'opacity .35s, transform .35s';
-        c.style.opacity = match ? '1' : '0.2';
-        c.style.transform = match ? 'scale(1)' : 'scale(0.97)';
-        c.style.pointerEvents = match ? 'auto' : 'none';
-      });
+  const filterBtns=document.querySelectorAll('.filter-btn'),cards=document.querySelectorAll('.project-card');
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+      const f=btn.dataset.filter;
+      cards.forEach(c=>{const match=f==='all'||c.dataset.cat===f;c.style.transition='opacity .35s,transform .35s';c.style.opacity=match?'1':'0.2';c.style.transform=match?'scale(1)':'scale(0.97)';c.style.pointerEvents=match?'auto':'none';});
     });
   });
 
   /* ── SCROLL REVEAL ── */
-  const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: .1 });
+  const revealObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:.1});
+  cards.forEach((c,i)=>{c.style.opacity='0';c.style.transform='translateY(32px)';c.style.transition=`opacity .6s ${i*.08}s ease,transform .6s ${i*.08}s ease,border-color .35s,box-shadow .35s`;revealObs.observe(c);});
 
-  cards.forEach((c, i) => {
-    c.style.opacity = '0';
-    c.style.transform = 'translateY(32px)';
-    c.style.transition = `opacity .6s ${i * .08}s ease, transform .6s ${i * .08}s ease, border-color .35s, box-shadow .35s`;
-    revealObs.observe(c);
-  });
-
-  /* ── IMAGE MODAL ── */
-  const modal = document.getElementById('imageModal');
-  const modalImg = document.getElementById('modalImg');
-  const closeBtn = document.getElementsByClassName('close')[0];
-
-  document.querySelectorAll('.card-visual img').forEach(img => {
-    img.addEventListener('click', function() {
-      modal.style.display = 'block';
-      modalImg.src = this.src;
-      modalImg.alt = this.alt;
-    });
-  });
-
-  closeBtn.addEventListener('click', function() {
-    modal.style.display = 'none';
-  });
-
-  modal.addEventListener('click', function(event) {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-    }
+  /* ── MODAL SYSTEM ── */
+  function openModal(id){const b=document.getElementById(id);if(!b)return;b.classList.add('open');document.body.style.overflow='hidden';const m=b.querySelector('.modal');if(m)m.scrollTop=0;const cl=b.querySelector('.modal-close');if(cl)setTimeout(()=>cl.focus(),50);}
+  function closeModal(id){const b=document.getElementById(id);if(!b)return;b.classList.remove('open');document.body.style.overflow='';}
+  document.querySelectorAll('.modal-backdrop').forEach(b=>b.addEventListener('click',e=>{if(e.target===b)closeModal(b.id);}));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-backdrop.open').forEach(b=>closeModal(b.id));});
+  document.querySelectorAll('.project-card[data-modal]').forEach(card=>{
+    card.addEventListener('click',e=>{if(e.target.closest('.btn-view-details')||e.target.closest('.modal-close'))return;openModal(card.dataset.modal);});
   });
 </script>
 </body>

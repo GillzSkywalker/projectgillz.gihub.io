@@ -8,28 +8,26 @@
   <style>
     /* ─── TOKENS ─── */
     :root {
-     
-      --void: #0d1426;
+      --void: #091712;
       --deep: #0f1830;
       --nebula-blue: #132440;
-      --star-white:  #e8f4ff;
-      --cyan:        #12ea65;
-      --cyan-dim:    rgba(0,212,255,0.12);
-      --cyan-glow:   rgba(0,212,255,0.4);
-      --magenta:     #2a0a4a;
-      --mag-dim:     rgba(255,45,120,0.12);
-      --gold:        #ffd166;
-      --text-body:   #a8c8e8;
-      --grid-line:   rgba(0,212,255,0.055);
-      --card-bg:     rgba(10,22,40,0.75);
-      --border-dim:  rgba(0,212,255,0.13);
+      --star-white: #e8f4ff;
+      --cyan: #12ea65;
+      --cyan-dim: rgba(0,212,255,0.15);
+      --cyan-glow: rgba(0,212,255,0.4);
+      --magenta: #ffd413;
+      --mag-dim: rgba(255, 45, 118, 0.058);
+      --gold: #ffd166;
+      --text-body: #c8d8e8;
+      --grid-line: rgba(0,212,255,0.08);
+      --card-bg: rgba(7, 71, 56, 0.85);
     }
-
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Exo 2', sans-serif;
+      font-size: 16px; line-height: 1.6;
       background: var(--void);
       color: var(--star-white);
       overflow-x: hidden;
@@ -173,7 +171,6 @@
       color:var(--magenta); background:var(--mag-dim);
     }
 
-    /* Decorative corner brackets */
     .hero-bracket {
       position:absolute;
       width:60px; height:60px;
@@ -214,7 +211,7 @@
     }
     .about-strip p {
       flex:1; min-width:280px;
-      font-size:.9rem; line-height:1.9; color:var(--text-body); font-weight:300;
+      font-size:1.0rem; line-height:1.9; color:var(--text-body); font-weight:300;
     }
     .stat-row {
       display:flex; gap:2rem; flex-wrap:wrap;
@@ -297,7 +294,6 @@
     }
     .project-card:hover::before { opacity:1; }
 
-    /* Card image placeholder */
     .card-visual {
       width:100%; height:180px;
       position:relative; overflow:hidden;
@@ -311,7 +307,6 @@
     }
     .project-card:hover .card-visual-bg { opacity:.8; transform:scale(1.04); }
 
-    /* Gradient variants */
     .vis-1 .card-visual-bg { background:radial-gradient(ellipse at 30% 60%, rgba(0,212,255,.25) 0%, transparent 65%), radial-gradient(ellipse at 80% 20%, rgba(255,45,120,.15) 0%, transparent 60%); }
     .vis-2 .card-visual-bg { background:radial-gradient(ellipse at 70% 50%, rgba(255,209,102,.2) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(0,212,255,.12) 0%, transparent 55%); }
     .vis-3 .card-visual-bg { background:radial-gradient(ellipse at 50% 30%, rgba(255,45,120,.25) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(0,212,255,.1) 0%, transparent 55%); }
@@ -329,7 +324,6 @@
       pointer-events:none;
     }
 
-    /* Status badge */
     .card-status {
       position:absolute; top:.8rem; left:.8rem;
       font-family:'Orbitron', monospace;
@@ -352,7 +346,7 @@
 
     .card-title {
       font-family:'Orbitron', monospace;
-      font-size:.9rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+      font-size:1.5rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
       color:var(--star-white); margin-bottom:.8rem; line-height:1.3;
     }
 
@@ -397,7 +391,26 @@
       color:rgba(168,200,232,.35); text-decoration:none; cursor:default;
     }
 
-    /* ─── FEATURED CARD (wide) ─── */
+    /* ─── VIEW DETAILS BUTTON ─── */
+    .btn-view-details {
+      font-family:'Orbitron', monospace;
+      font-size:.52rem; letter-spacing:.15em; text-transform:uppercase;
+      color:var(--void);
+      background:linear-gradient(135deg, var(--cyan), #0aaa4a);
+      padding:.4rem 1rem;
+      border:none; cursor:none;
+      clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+      transition:filter .2s, transform .2s;
+      box-shadow:0 0 18px rgba(18,234,101,.25);
+      flex-shrink: 0;
+    }
+    .btn-view-details:hover {
+      filter:brightness(1.2);
+      transform:translateY(-1px);
+      box-shadow:0 0 28px rgba(18,234,101,.4);
+    }
+
+    /* ─── FEATURED CARD ─── */
     .project-card.featured {
       grid-column: span 2;
       flex-direction:row;
@@ -408,7 +421,7 @@
     }
     .project-card.featured .card-visual-num { font-size:5rem; }
 
-    /* ─── CONTACT CTA ─── */
+    /* ─── CTA ─── */
     .cta-section {
       max-width:1300px; margin:0 auto;
       padding:0 2rem 8rem;
@@ -433,7 +446,7 @@
       color:var(--star-white); margin-bottom:1rem;
     }
     .cta-box p {
-      font-size:.9rem; color:var(--text-body); font-weight:300;
+      font-size:1.0rem; color:var(--text-body); font-weight:300;
       line-height:1.8; max-width:480px; margin:0 auto 2rem;
     }
     .btn-primary {
@@ -448,66 +461,6 @@
       text-decoration:none;
     }
     .btn-primary:hover { filter:brightness(1.2); transform:translateY(-2px); box-shadow:0 0 50px rgba(0,212,255,.45); }
-
-    /* ─── FOOTER ─── */
-    /* ─── SKILLS SECTION ─── */
-    .skills-section {
-      padding: 7rem 2rem;
-      max-width: 1300px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2.5rem;
-    }
-
-    .skill-item {
-      background: var(--card-bg);
-      border: 1px solid rgba(0,212,255,0.2);
-      padding: 2rem;
-      border-radius: 8px;
-      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    }
-
-    .skill-item:hover {
-      border-color: rgba(0,212,255,0.4);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,212,255,0.08);
-    }
-
-    .skill-item h3 {
-      font-family: 'Orbitron', monospace;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--star-white);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .skill-item h3::before {
-      content: '';
-      width: 4px;
-      height: 4px;
-      background: var(--cyan);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--cyan);
-    }
-
-    .skill-item p {
-      color: var(--text-body);
-      font-size: 0.9rem;
-      line-height: 1.8;
-      font-weight: 300;
-    }
 
     /* ─── FOOTER ─── */
     footer {
@@ -530,6 +483,259 @@
       font-size:.65rem; color:rgba(168,200,232,.35);
     }
 
+    /* ══════════════════════════════════════════
+       ─── MODAL SYSTEM ───
+    ══════════════════════════════════════════ */
+
+    /* Backdrop */
+    .modal-backdrop {
+      position:fixed; inset:0;
+      z-index:5000;
+      background: rgba(4, 12, 8, 0.82);
+      backdrop-filter: blur(12px) saturate(0.6);
+      display:flex; align-items:center; justify-content:center;
+      padding: 1.5rem;
+      opacity:0; pointer-events:none;
+      transition: opacity .35s ease;
+    }
+    .modal-backdrop.open {
+      opacity:1; pointer-events:auto;
+    }
+
+    /* Modal panel */
+    .modal {
+      position: relative;
+      max-width: 820px; width:100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: linear-gradient(145deg, rgba(7,40,28,0.97) 0%, rgba(9,23,18,0.99) 100%);
+      border: 1px solid rgba(18,234,101,.25);
+      box-shadow:
+        0 0 0 1px rgba(18,234,101,.06),
+        0 30px 80px rgba(0,0,0,.7),
+        0 0 60px rgba(18,234,101,.08),
+        inset 0 1px 0 rgba(18,234,101,.12);
+      transform: translateY(32px) scale(0.97);
+      transition: transform .4s cubic-bezier(.16,1,.3,1), opacity .35s ease;
+      opacity:0;
+    }
+    .modal-backdrop.open .modal {
+      transform: translateY(0) scale(1);
+      opacity:1;
+    }
+
+    /* Scrollbar styling */
+    .modal::-webkit-scrollbar { width: 4px; }
+    .modal::-webkit-scrollbar-track { background: transparent; }
+    .modal::-webkit-scrollbar-thumb { background: rgba(18,234,101,.3); border-radius: 2px; }
+
+    /* Corner accents */
+    .modal::before, .modal::after {
+      content:'';
+      position:absolute;
+      width:24px; height:24px;
+      pointer-events:none; z-index:1;
+    }
+    .modal::before {
+      top:0; left:0;
+      border-top:1px solid var(--cyan);
+      border-left:1px solid var(--cyan);
+    }
+    .modal::after {
+      bottom:0; right:0;
+      border-bottom:1px solid var(--magenta);
+      border-right:1px solid var(--magenta);
+    }
+
+    /* Scan line animation */
+    .modal-scanline {
+      position:absolute; top:0; left:0; right:0;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(18,234,101,.5), transparent);
+      animation: scanDown 3s ease-in-out infinite;
+      pointer-events:none; z-index:2;
+    }
+    @keyframes scanDown {
+      0%   { top:0; opacity:1; }
+      80%  { top:100%; opacity:.4; }
+      100% { top:100%; opacity:0; }
+    }
+
+    /* Top accent bar */
+    .modal-topbar {
+      height:2px;
+      background:linear-gradient(90deg, var(--cyan), var(--magenta), var(--cyan));
+      background-size:200% 100%;
+      animation:shimmer 3s linear infinite;
+    }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    /* Modal header visual */
+    .modal-hero {
+      position:relative;
+      height:220px;
+      overflow:hidden;
+      background:var(--deep);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .modal-hero-bg {
+      position:absolute; inset:0;
+    }
+    .modal-hero img, .modal-hero video {
+      width:100%; height:100%;
+      object-fit:cover;
+      opacity:.85;
+    }
+    .modal-hero-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to bottom, transparent 40%, rgba(7,40,28,.95) 100%);
+    }
+    .modal-hero-num {
+      position:absolute; bottom:.8rem; right:1rem;
+      font-family:'Orbitron', monospace;
+      font-size:5rem; font-weight:900;
+      color:rgba(255,255,255,.04); line-height:1;
+      pointer-events:none;
+    }
+
+    /* Modal content */
+    .modal-content {
+      padding: 2rem 2.4rem 2.4rem;
+    }
+
+    .modal-meta {
+      display:flex; align-items:center; gap:1rem;
+      margin-bottom:1.2rem; flex-wrap:wrap;
+    }
+    .modal-category {
+      font-family:'Orbitron', monospace;
+      font-size:.5rem; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--magenta);
+    }
+    .modal-divider {
+      width:1px; height:14px;
+      background:rgba(0,212,255,.2);
+    }
+
+    .modal-title {
+      font-family:'Orbitron', monospace;
+      font-size:clamp(1.1rem, 3vw, 1.7rem);
+      font-weight:900; letter-spacing:.06em; text-transform:uppercase;
+      color:var(--star-white); margin-bottom:1.4rem; line-height:1.2;
+    }
+    .modal-title span {
+      color:var(--cyan);
+      text-shadow:0 0 20px rgba(18,234,101,.4);
+    }
+
+    .modal-body-text {
+      font-size:.95rem; color:var(--text-body);
+      line-height:1.85; font-weight:300;
+      margin-bottom:1.8rem;
+    }
+
+    /* Info grid */
+    .modal-info-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
+      gap:1px;
+      background:rgba(18,234,101,.08);
+      border:1px solid rgba(18,234,101,.1);
+      margin-bottom:1.8rem;
+    }
+    .modal-info-cell {
+      padding:.9rem 1.2rem;
+      background:rgba(7,40,28,.6);
+    }
+    .modal-info-label {
+      font-family:'Orbitron', monospace;
+      font-size:.45rem; letter-spacing:.2em; text-transform:uppercase;
+      color:rgba(0,212,255,.45); margin-bottom:.35rem;
+    }
+    .modal-info-val {
+      font-family:'Orbitron', monospace;
+      font-size:.72rem; letter-spacing:.05em;
+      color:var(--star-white); font-weight:600;
+    }
+
+    /* Tech stack in modal */
+    .modal-tech-heading {
+      font-family:'Orbitron', monospace;
+      font-size:.5rem; letter-spacing:.25em; text-transform:uppercase;
+      color:rgba(0,212,255,.45); margin-bottom:.8rem;
+    }
+    .modal-tech-list {
+      display:flex; gap:.5rem; flex-wrap:wrap;
+      margin-bottom:2rem;
+    }
+
+    /* Modal footer actions */
+    .modal-actions {
+      display:flex; gap:1rem; flex-wrap:wrap;
+      padding-top:1.4rem;
+      border-top:1px solid rgba(18,234,101,.1);
+    }
+    .modal-btn {
+      font-family:'Orbitron', monospace;
+      font-size:.55rem; letter-spacing:.18em; text-transform:uppercase;
+      padding:.65rem 1.6rem;
+      cursor:none; text-decoration:none;
+      transition:all .25s;
+      display:inline-flex; align-items:center; gap:.5rem;
+    }
+    .modal-btn-primary {
+      color:var(--void);
+      background:linear-gradient(135deg, var(--cyan), #0aaa4a);
+      clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+      box-shadow:0 0 24px rgba(18,234,101,.3);
+    }
+    .modal-btn-primary:hover { filter:brightness(1.15); box-shadow:0 0 38px rgba(18,234,101,.5); }
+    .modal-btn-secondary {
+      color:var(--cyan);
+      border:1px solid rgba(18,234,101,.3);
+      background:rgba(18,234,101,.06);
+    }
+    .modal-btn-secondary:hover {
+      border-color:var(--cyan);
+      background:rgba(18,234,101,.12);
+      box-shadow:0 0 18px rgba(18,234,101,.15);
+    }
+    .modal-btn-ghost {
+      color:rgba(168,200,232,.4);
+      border:1px solid rgba(168,200,232,.1);
+      background:transparent;
+      cursor:not-allowed;
+    }
+
+    /* Close button */
+    .modal-close {
+      position:absolute; top:1rem; right:1rem;
+      z-index:10;
+      width:34px; height:34px;
+      background:rgba(9,23,18,.8);
+      border:1px solid rgba(18,234,101,.25);
+      color:var(--text-body);
+      font-size:.9rem; line-height:1;
+      cursor:none;
+      display:flex; align-items:center; justify-content:center;
+      transition:all .2s;
+    }
+    .modal-close:hover {
+      border-color:rgba(255,45,120,.5);
+      color:var(--magenta);
+      background:rgba(255,45,120,.08);
+      box-shadow:0 0 16px rgba(255,45,120,.2);
+    }
+
+    /* Close hint text */
+    .modal-close-hint {
+      position:absolute; bottom:-.3rem; right:0;
+      font-family:'Orbitron', monospace;
+      font-size:.38rem; letter-spacing:.1em;
+      color:rgba(168,200,232,.25);
+      white-space:nowrap;
+    }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width:900px) {
       .project-card.featured { grid-column:span 1; flex-direction:column; }
@@ -549,6 +755,10 @@
       .project-grid { grid-template-columns:1fr; }
       .footer-inner { flex-direction:column; text-align:center; }
       .hero-bracket { display:none; }
+      .modal-content { padding:1.4rem 1.6rem 1.8rem; }
+      .modal-hero { height:160px; }
+      .modal-actions { flex-direction:column; }
+      .modal-btn { text-align:center; justify-content:center; }
     }
   </style>
 </head>
@@ -569,7 +779,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html#about">About</a></li>
       <li><a href="#projects" class="active">Projects</a></li>
-      <li><a href="index.html#filter">SSkills</a></li>
+      <li><a href="index.html#filter">Skills</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
   </nav>
@@ -586,14 +796,13 @@
 
     <p class="hero-eyebrow">Mission Archive // Work Log Active</p>
     <h1 class="hero-title">BSc Creative computing Year 1<br>Projects</h1>
-    <p class="hero-sub">Here are my outstanding projects in 1st year. They are focused on designs and prototypes. </p>
+    <p class="hero-sub">Here are my outstanding projects in 1st year. They are focused on designs and prototypes.</p>
     <div class="hero-tags">
       <span class="tag">Digital Storytelling</span>
       <span class="tag mag">Digital Visual design</span>
       <span class="tag">CodeLab 1</span>
       <span class="tag mag">UX Design</span>
       <span class="tag">Web Development</span>
-
     </div>
   </section>
 
@@ -606,14 +815,12 @@
       Each project represents a blend of creativity, technical precision, and storytelling —
       crafted to push the boundaries of the digital universe.
       <br><br>
-      Add your own project descriptions and links where marked. Replace placeholder icons with screenshots or mockups.
+      Click any project card to open a detailed mission briefing.
     </p>
     <div class="stat-row">
       <div class="stat-box">
         <span class="stat-num">06</span>
         <span class="stat-label">Projects</span>
-      </div>
-   
       </div>
     </div>
   </div>
@@ -634,34 +841,37 @@
     <div class="project-grid" id="projectGrid">
 
       <!-- CARD 1 — Featured / wide -->
-      <div class="project-card featured vis-1" data-cat="dev">
+      <div class="project-card featured vis-1" data-cat="dev"
+           data-modal="modal-1"
+           style="cursor:none;">
         <div class="card-visual">
           <div class="card-visual-bg"></div>
           <div class="card-visual-bg">
             <video autoplay muted loop style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8);">
               <source src="Bullet Swatch Commercial (1).mp4" type="video/mp4">
+            </video>
           </div>
           <div class="card-visual-num">01</div>
           <span class="card-status status-live">● Live</span>
         </div>
         <div class="card-body">
           <span class="card-category">Digital storytelling.</span>
-          <h3 class="card-title">Digital Storytelling - Swatch bullet brand </h3>
+          <h3 class="card-title">Digital Storytelling - Swatch bullet brand</h3>
           <p class="card-desc">
-            We made our own commercial for this swatch bullet watch, It is used for digital storytelling project, and we created a story around the watch, which is about a secret agent who uses the watch to complete her missions. We have some materials to create this project including the camera itself.
+            We made our own commercial for this swatch bullet watch. Created a story around the watch — a secret agent who uses it to complete her missions.
+          </p>
           <div class="card-tech">
             <span class="tech-chip">Film</span>
             <span class="tech-chip">Photopea</span>
-
           </div>
           <div class="card-footer">
-            <a href="#" class="card-link" style="color:var(--text-body)">Source Code →</a>
+            <button class="btn-view-details" onclick="openModal('modal-1'); return false;">View Details</button>
           </div>
         </div>
       </div>
 
       <!-- CARD 2 -->
-      <div class="project-card vis-2" data-cat="design">
+      <div class="project-card vis-2" data-cat="design" data-modal="modal-2">
         <div class="card-visual">
           <div class="card-visual-bg">
             <img src="Screenshot 2026-03-04 134223.png" alt="website-project" style="width:100%; height:100%; object-fit:cover; border-radius:4px;">
@@ -673,36 +883,34 @@
           <span class="card-category">Web Development 1</span>
           <h3 class="card-title">My very first front-end website, Gillian's inky works.</h3>
           <p class="card-desc">
-            This was my first ever fron-end project website. I was inspired to create this website in order to make my own art gallery website based on 
+            My first ever front-end project website — an art gallery website built with passion and code.
           </p>
           <div class="card-tech">
             <span class="tech-chip gold">Illustrator</span>
             <span class="tech-chip gold">Photoshop</span>
             <span class="tech-chip">CSS</span>
-
           </div>
           <div class="card-footer">
             <span class="card-link-ghost">Private Repo</span>
+            <button class="btn-view-details" onclick="openModal('modal-2'); return false;">View Details</button>
           </div>
         </div>
       </div>
 
       <!-- CARD 3 -->
-      <div class="project-card vis-3" data-cat="ux">
+      <div class="project-card vis-3" data-cat="ux" data-modal="modal-3">
         <div class="card-visual">
           <div class="card-visual-bg">
             <img src="ux.png" alt="UX Design Project" style="width:100%; height:100%; object-fit:cover; border-radius:4px;">
           </div>
-          <div class="card-visual-icon">
-          </div>
           <div class="card-visual-num">03</div>
-          <span class="card-status status-wip">◐ Live </span>
+          <span class="card-status status-wip">◐ Live</span>
         </div>
         <div class="card-body">
           <span class="card-category">UX Design</span>
-          <h3 class="card-title">Project Three Title</h3>
+          <h3 class="card-title">Tranquil Gen — Stress Relief App</h3>
           <p class="card-desc">
-          This is the prototype of a mobile app that I have created, which is called the tranquil gen, a stress relief tracker and mood journal. 
+            A prototype mobile app — a stress relief tracker and mood journal called Tranquil Gen.
           </p>
           <div class="card-tech">
             <span class="tech-chip gold">Figma</span>
@@ -710,16 +918,17 @@
             <span class="tech-chip">User Research</span>
           </div>
           <div class="card-footer">
+            <button class="btn-view-details" onclick="openModal('modal-3'); return false;">View Details</button>
           </div>
         </div>
       </div>
 
       <!-- CARD 4 -->
-      <div class="project-card vis-4" data-cat="dev">
+      <div class="project-card vis-4" data-cat="dev" data-modal="modal-4">
         <div class="card-visual">
           <div class="card-visual-bg"></div>
           <div class="card-visual-icon">
-              <img src="spaceinvaders.png" alt="Space Invaders Project" style="width:100%; height:100%; object-fit:cover; border-radius:4px;">
+            <img src="spaceinvaders.png" alt="Space Invaders Project" style="width:100%; height:100%; object-fit:cover; border-radius:4px;">
           </div>
           <div class="card-visual-num">04</div>
           <span class="card-status status-live">● Live</span>
@@ -728,20 +937,19 @@
           <span class="card-category">Creative coding projects</span>
           <h3 class="card-title">Space invaders - Creative coding project</h3>
           <p class="card-desc">
-            Another development project. Talk about the stack, any challenges you overcame,
-            and what you're most proud of building.  
+            A classic Space Invaders remake built with p5.js — exploring game logic, collision detection, and interactive rendering.
           </p>
           <div class="card-tech">
             <span class="tech-chip">p5.js</span>
           </div>
           <div class="card-footer">
-            <a href="#" class="card-link" style="color:var(--text-body)">Source Code →</a>
+            <button class="btn-view-details" onclick="openModal('modal-4'); return false;">View Details</button>
           </div>
         </div>
       </div>
 
       <!-- CARD 5 -->
-      <div class="project-card vis-1" data-cat="design">
+      <div class="project-card vis-1" data-cat="design" data-modal="modal-5">
         <div class="card-visual">
           <div class="card-visual-bg"></div>
           <div class="card-visual-icon">
@@ -754,23 +962,21 @@
           <span class="card-category">Creative Coding - P5.js</span>
           <h3 class="card-title">Car project - Creative coding (Experiment)</h3>
           <p class="card-desc">
-            I used p5.js to create some car designs with the use of art, and assets for one game that i planned to create. 
-
+            Using p5.js to create car designs with art and game assets — planned as part of a larger game concept.
           </p>
           <div class="card-tech">
             <span class="tech-chip gold">Illustrator</span>
             <span class="tech-chip">p5.js</span>
-     
           </div>
           <div class="card-footer">
-            <a href="#" class="card-link">View Project</a>
-            <span class="card-link-ghost">Concept</span>
+            <a href="#" class="card-link" onclick="return false;">View Project</a>
+            <button class="btn-view-details" onclick="openModal('modal-5'); return false;">View Details</button>
           </div>
         </div>
       </div>
 
-      <!-- CARD 6 — Coming Soon -->
-      <div class="project-card vis-2" data-cat="ux">
+      <!-- CARD 6 -->
+      <div class="project-card vis-2" data-cat="ux" data-modal="modal-6">
         <div class="card-visual">
           <div class="card-visual-bg"></div>
           <div class="card-visual-icon">
@@ -783,8 +989,7 @@
           <span class="card-category">Ideation</span>
           <h3 class="card-title">Trophy - Ideation project</h3>
           <p class="card-desc">
-            New coordinates locked in. The next mission is in development —
-            a deep dive into interaction design and user-centred thinking.
+            New coordinates locked in. A deep dive into interaction design and user-centred thinking. Stay tuned.
           </p>
           <div class="card-tech">
             <span class="tech-chip gold">Figma</span>
@@ -792,7 +997,7 @@
           </div>
           <div class="card-footer">
             <a href="index.html#contact" class="card-link">Get Notified</a>
-            <span class="card-link-ghost">Coming Soon</span>
+            <button class="btn-view-details" onclick="openModal('modal-6'); return false;">View Details</button>
           </div>
         </div>
       </div>
@@ -811,29 +1016,7 @@
     </div>
   </section>
 
-
-  <!-- Skills sections-->
-  <div class="section-divider"><span>Sector 04 // Skills Matrix</span></div>
-
-  <section class="skills-section">
-    <div class="skills-grid">
-      <div class="skill-item">
-        <h3>Front-End Development</h3>
-        <p>My journey in web development started with this first project. I mastered HTML and CSS to create the structure and visual design, then enhanced it with JavaScript for interactivity. This foundational project taught me the importance of clean code, responsive design, and user-friendly navigation—giving me the confidence to tackle more complex web applications.</p>
-      </div>
-
-      <div class="skill-item">
-        <h3>Creative Coding</h3>
-        <p>Leveraging p5.js, I created generative art and interactive games like Space Invaders. This blend of code and creativity pushed my understanding of algorithms, real-time rendering, and artistic expression. These experiments demonstrated how programming can be a powerful medium for visual storytelling and interactive experiences.</p>
-      </div>
-
-      <div class="skill-item">
-        <h3>Digital Storytelling</h3>
-        <p>The Swatch Bullet Brand commercial project showcased my ability to combine film production, visual design, and narrative craft. Working with camera equipment and motion graphics, I created a cohesive brand story that merged technical skills with creative storytelling—proving that great narratives need strong visual execution.</p>
-      </div>
-    </div>
-  </section>
-
+</main>
 
 <!-- ─── FOOTER ─── -->
 <footer>
@@ -844,6 +1027,407 @@
   </div>
 </footer>
 
+
+<!-- ══════════════════════════════════════════
+     ─── MODALS ───
+══════════════════════════════════════════ -->
+
+<!-- MODAL 1: Swatch Commercial -->
+<div class="modal-backdrop" id="modal-1" role="dialog" aria-modal="true" aria-label="Project: Swatch Bullet Commercial">
+  <div class="modal">
+    <div class="modal-scanline"></div>
+    <div class="modal-topbar"></div>
+    <button class="modal-close" onclick="closeModal('modal-1')" aria-label="Close">✕
+      <span class="modal-close-hint">ESC</span>
+    </button>
+
+    <div class="modal-hero">
+      <video autoplay muted loop style="width:100%;height:100%;object-fit:cover;opacity:.8;">
+        <source src="Bullet Swatch Commercial (1).mp4" type="video/mp4">
+      </video>
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-num">01</div>
+    </div>
+
+    <div class="modal-content">
+      <div class="modal-meta">
+        <span class="modal-category">Digital Storytelling</span>
+        <div class="modal-divider"></div>
+        <span class="card-status status-live" style="position:static;">● Live</span>
+      </div>
+
+      <h2 class="modal-title">Swatch Bullet<br><span>Brand Commercial</span></h2>
+
+      <p class="modal-body-text">
+        A full commercial production for the Swatch Bullet watch. The brief challenged us to build a narrative around the product — the result: a secret agent thriller where the watch is the hero's most essential tool. Every scene was storyboarded, filmed, and edited to convey tension, style, and brand identity.
+        <br><br>
+        The project pushed skills in cinematography, colour grading, and visual storytelling — combining physical filming with digital post-processing in Photopea to deliver a polished final cut.
+      </p>
+
+      <div class="modal-info-grid">
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Module</div>
+          <div class="modal-info-val">Digital Storytelling</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Year</div>
+          <div class="modal-info-val">Year 1</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Type</div>
+          <div class="modal-info-val">Film / Commercial</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Status</div>
+          <div class="modal-info-val" style="color:#39ff88;">Live</div>
+        </div>
+      </div>
+
+      <div class="modal-tech-heading">Tools & Tech //</div>
+      <div class="modal-tech-list">
+        <span class="tech-chip">Film Camera</span>
+        <span class="tech-chip">Photopea</span>
+        <span class="tech-chip">Storyboarding</span>
+        <span class="tech-chip">Video Editing</span>
+        <span class="tech-chip">Colour Grading</span>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-ghost" disabled>🔒 Private Assets</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 2: Gillian's Inky Works -->
+<div class="modal-backdrop" id="modal-2" role="dialog" aria-modal="true" aria-label="Project: Gillian's Inky Works">
+  <div class="modal">
+    <div class="modal-scanline"></div>
+    <div class="modal-topbar"></div>
+    <button class="modal-close" onclick="closeModal('modal-2')" aria-label="Close">✕
+      <span class="modal-close-hint">ESC</span>
+    </button>
+
+    <div class="modal-hero">
+      <img src="Screenshot 2026-03-04 134223.png" alt="Gillian's Inky Works website">
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-num">02</div>
+    </div>
+
+    <div class="modal-content">
+      <div class="modal-meta">
+        <span class="modal-category">Web Development 1</span>
+        <div class="modal-divider"></div>
+        <span class="card-status status-live" style="position:static;">● Live</span>
+      </div>
+
+      <h2 class="modal-title">Gillian's<br><span>Inky Works</span></h2>
+
+      <p class="modal-body-text">
+        My very first front-end project — a personal art gallery website built entirely from scratch. The site was designed to showcase original illustrations and ink-based artworks in a clean, gallery-style layout.
+        <br><br>
+        This project marked my first real experience translating a design vision into working HTML and CSS. Assets were created in Adobe Illustrator and Photoshop, then hand-coded into a responsive layout — a milestone in both design and development.
+      </p>
+
+      <div class="modal-info-grid">
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Module</div>
+          <div class="modal-info-val">Web Development</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Year</div>
+          <div class="modal-info-val">Year 1</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Type</div>
+          <div class="modal-info-val">Front-End Website</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Repo</div>
+          <div class="modal-info-val" style="color:rgba(168,200,232,.4);">Private</div>
+        </div>
+      </div>
+
+      <div class="modal-tech-heading">Tools & Tech //</div>
+      <div class="modal-tech-list">
+        <span class="tech-chip gold">Illustrator</span>
+        <span class="tech-chip gold">Photoshop</span>
+        <span class="tech-chip">HTML5</span>
+        <span class="tech-chip">CSS3</span>
+        <span class="tech-chip">Responsive Design</span>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-ghost" disabled>🔒 Private Repository</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 3: Tranquil Gen -->
+<div class="modal-backdrop" id="modal-3" role="dialog" aria-modal="true" aria-label="Project: Tranquil Gen">
+  <div class="modal">
+    <div class="modal-scanline"></div>
+    <div class="modal-topbar"></div>
+    <button class="modal-close" onclick="closeModal('modal-3')" aria-label="Close">✕
+      <span class="modal-close-hint">ESC</span>
+    </button>
+
+    <div class="modal-hero">
+      <img src="ux.png" alt="Tranquil Gen UX Design">
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-num">03</div>
+    </div>
+
+    <div class="modal-content">
+      <div class="modal-meta">
+        <span class="modal-category">UX Design</span>
+        <div class="modal-divider"></div>
+        <span class="card-status status-wip" style="position:static;">◐ Live</span>
+      </div>
+
+      <h2 class="modal-title">Tranquil Gen —<br><span>Stress Relief App</span></h2>
+
+      <p class="modal-body-text">
+        A full UX design and prototype for Tranquil Gen — a mobile application focused on stress relief tracking and mood journaling. The project followed a complete user-centred design process from initial research through to high-fidelity prototype.
+        <br><br>
+        User research, wireframing, information architecture, and interactive prototyping were all completed in Figma. The app was designed around accessibility and calm aesthetics to support users during high-stress moments.
+      </p>
+
+      <div class="modal-info-grid">
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Module</div>
+          <div class="modal-info-val">UX Design</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Year</div>
+          <div class="modal-info-val">Year 1</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Type</div>
+          <div class="modal-info-val">Mobile App Prototype</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Platform</div>
+          <div class="modal-info-val">Figma</div>
+        </div>
+      </div>
+
+      <div class="modal-tech-heading">Tools & Tech //</div>
+      <div class="modal-tech-list">
+        <span class="tech-chip gold">Figma</span>
+        <span class="tech-chip">Prototyping</span>
+        <span class="tech-chip">User Research</span>
+        <span class="tech-chip">Wireframing</span>
+        <span class="tech-chip">User Testing</span>
+        <span class="tech-chip">Accessibility</span>
+      </div>
+
+      <div class="modal-actions">
+        <a href="#" class="modal-btn modal-btn-primary" onclick="return false;">⟶ View Figma Prototype</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 4: Space Invaders -->
+<div class="modal-backdrop" id="modal-4" role="dialog" aria-modal="true" aria-label="Project: Space Invaders">
+  <div class="modal">
+    <div class="modal-scanline"></div>
+    <div class="modal-topbar"></div>
+    <button class="modal-close" onclick="closeModal('modal-4')" aria-label="Close">✕
+      <span class="modal-close-hint">ESC</span>
+    </button>
+
+    <div class="modal-hero">
+      <img src="spaceinvaders.png" alt="Space Invaders p5.js">
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-num">04</div>
+    </div>
+
+    <div class="modal-content">
+      <div class="modal-meta">
+        <span class="modal-category">Creative Coding</span>
+        <div class="modal-divider"></div>
+        <span class="card-status status-live" style="position:static;">● Live</span>
+      </div>
+
+      <h2 class="modal-title">Space Invaders —<br><span>Creative Coding</span></h2>
+
+      <p class="modal-body-text">
+        A fully playable Space Invaders clone built using p5.js — the classic arcade game reimagined as a creative coding exercise. The project covered core game development concepts including the game loop, sprite rendering, collision detection, score tracking, and enemy AI patterns.
+        <br><br>
+        Building this game deepened my understanding of JavaScript logic and how p5.js handles animations and interactivity at a canvas level.
+      </p>
+
+      <div class="modal-info-grid">
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Module</div>
+          <div class="modal-info-val">Creative Coding</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Year</div>
+          <div class="modal-info-val">Year 1</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Type</div>
+          <div class="modal-info-val">Browser Game</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Language</div>
+          <div class="modal-info-val">JavaScript</div>
+        </div>
+      </div>
+
+      <div class="modal-tech-heading">Tools & Tech //</div>
+      <div class="modal-tech-list">
+        <span class="tech-chip">p5.js</span>
+        <span class="tech-chip">JavaScript</span>
+        <span class="tech-chip">Game Loop</span>
+        <span class="tech-chip">Collision Detection</span>
+        <span class="tech-chip">Canvas API</span>
+      </div>
+
+      <div class="modal-actions">
+        <a href="#" class="modal-btn modal-btn-primary" onclick="return false;">▶ Play Game</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 5: Car Project -->
+<div class="modal-backdrop" id="modal-5" role="dialog" aria-modal="true" aria-label="Project: Car Design Experiment">
+  <div class="modal">
+    <div class="modal-scanline"></div>
+    <div class="modal-topbar"></div>
+    <button class="modal-close" onclick="closeModal('modal-5')" aria-label="Close">✕
+      <span class="modal-close-hint">ESC</span>
+    </button>
+
+    <div class="modal-hero">
+      <img src="car.png" alt="Car Design p5.js">
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-num">05</div>
+    </div>
+
+    <div class="modal-content">
+      <div class="modal-meta">
+        <span class="modal-category">Creative Coding — Experiment</span>
+        <div class="modal-divider"></div>
+        <span class="card-status status-concept" style="position:static;">◌ Concept</span>
+      </div>
+
+      <h2 class="modal-title">Car Design —<br><span>p5.js Experiment</span></h2>
+
+      <p class="modal-body-text">
+        An experimental creative coding project using p5.js to design and animate car assets — originally conceived as part of a larger racing game concept. Illustrations were created in Adobe Illustrator and then brought to life programmatically using p5.js rendering.
+        <br><br>
+        The experiment explored the intersection of graphic design and code — using vector assets as game sprites and experimenting with movement, scale, and visual feedback on the canvas.
+      </p>
+
+      <div class="modal-info-grid">
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Module</div>
+          <div class="modal-info-val">Creative Coding</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Year</div>
+          <div class="modal-info-val">Year 1</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Type</div>
+          <div class="modal-info-val">Experimental / Concept</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Status</div>
+          <div class="modal-info-val" style="color:rgba(168,200,232,.5);">Concept</div>
+        </div>
+      </div>
+
+      <div class="modal-tech-heading">Tools & Tech //</div>
+      <div class="modal-tech-list">
+        <span class="tech-chip gold">Illustrator</span>
+        <span class="tech-chip">p5.js</span>
+        <span class="tech-chip">JavaScript</span>
+        <span class="tech-chip">Sprite Design</span>
+        <span class="tech-chip">Animation</span>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-ghost" disabled>🛠 In Development</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 6: Trophy Ideation -->
+<div class="modal-backdrop" id="modal-6" role="dialog" aria-modal="true" aria-label="Project: Trophy Ideation">
+  <div class="modal">
+    <div class="modal-scanline"></div>
+    <div class="modal-topbar"></div>
+    <button class="modal-close" onclick="closeModal('modal-6')" aria-label="Close">✕
+      <span class="modal-close-hint">ESC</span>
+    </button>
+
+    <div class="modal-hero">
+      <img src="ideation.png" alt="Trophy Ideation Project">
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-num">06</div>
+    </div>
+
+    <div class="modal-content">
+      <div class="modal-meta">
+        <span class="modal-category">Ideation & UX</span>
+        <div class="modal-divider"></div>
+        <span class="card-status status-wip" style="position:static;">◐ In Progress</span>
+      </div>
+
+      <h2 class="modal-title">Trophy —<br><span>Ideation Project</span></h2>
+
+      <p class="modal-body-text">
+        New coordinates locked in. The Trophy project is a deep dive into interaction design and user-centred thinking — currently in active development. This project takes months to complete, but the journey itself is full of discovery.
+        <br><br>
+        The ideation phase involves extensive concept mapping, competitive analysis, user personas, and low-fidelity wireframing. Figma is the primary tool for rapid prototyping and iteration. Stay tuned for updates as this mission unfolds.
+      </p>
+
+      <div class="modal-info-grid">
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Module</div>
+          <div class="modal-info-val">Ideation</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Year</div>
+          <div class="modal-info-val">Year 1</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Type</div>
+          <div class="modal-info-val">UX / Prototype</div>
+        </div>
+        <div class="modal-info-cell">
+          <div class="modal-info-label">Status</div>
+          <div class="modal-info-val" style="color:var(--gold);">In Progress</div>
+        </div>
+      </div>
+
+      <div class="modal-tech-heading">Tools & Tech //</div>
+      <div class="modal-tech-list">
+        <span class="tech-chip gold">Figma</span>
+        <span class="tech-chip">Prototyping</span>
+        <span class="tech-chip">User Personas</span>
+        <span class="tech-chip">Concept Mapping</span>
+        <span class="tech-chip">Wireframing</span>
+      </div>
+
+      <div class="modal-actions">
+        <a href="index.html#contact" class="modal-btn modal-btn-primary">⟶ Get Notified</a>
+        <button class="modal-btn modal-btn-ghost" disabled>🕐 Coming Soon</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ─── SCRIPTS ─── -->
 <script>
   /* ── CURSOR ── */
   const cursor    = document.getElementById('cursor');
@@ -947,6 +1531,54 @@
     c.style.opacity='0'; c.style.transform='translateY(32px)';
     c.style.transition=`opacity .6s ${i*.08}s ease, transform .6s ${i*.08}s ease, border-color .35s, box-shadow .35s`;
     revealObs.observe(c);
+  });
+
+  /* ══════════════════════════════════════════
+     ── MODAL SYSTEM ──
+  ══════════════════════════════════════════ */
+
+  function openModal(id) {
+    const backdrop = document.getElementById(id);
+    if (!backdrop) return;
+    backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Scroll modal to top
+    const modal = backdrop.querySelector('.modal');
+    if (modal) modal.scrollTop = 0;
+    // Focus trap: focus the close button
+    const closeBtn = backdrop.querySelector('.modal-close');
+    if (closeBtn) setTimeout(()=>closeBtn.focus(), 50);
+  }
+
+  function closeModal(id) {
+    const backdrop = document.getElementById(id);
+    if (!backdrop) return;
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close on backdrop click (outside modal panel)
+  document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+    backdrop.addEventListener('click', e => {
+      if (e.target === backdrop) closeModal(backdrop.id);
+    });
+  });
+
+  // Close on ESC key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-backdrop.open').forEach(b => closeModal(b.id));
+    }
+  });
+
+  // Also make entire card clickable (except button)
+  document.querySelectorAll('.project-card[data-modal]').forEach(card => {
+    card.addEventListener('click', e => {
+      // Don't trigger if clicking a link or the details button
+      if (e.target.closest('.card-link') || e.target.closest('.modal-close') || e.target.closest('.modal-btn')) return;
+      openModal(card.dataset.modal);
+    });
+    card.style.cursor = 'none';
   });
 </script>
 </body>

@@ -31,7 +31,7 @@ document.querySelectorAll('a, button, input, textarea').forEach(el => {
     cursorRing.style.width = '52px';
     cursorRing.style.height = '52px';
   });
-  
+
   el.addEventListener('mouseleave', () => {
     cursor.style.width = '12px';
     cursor.style.height = '12px';
@@ -150,8 +150,13 @@ document.querySelectorAll('.nav-links a').forEach(a => {
 // SCROLL REVEAL EFFECTS
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const revealEls = document.querySelectorAll('.project-card, .about-text, .profile-frame, .certificates-achievements');
-const observer = new IntersectionObserver(entries => {
+const revealEls = document.querySelectorAll(
+  '.project-card, .about-text, .profile-frame, .certificates-achievements, .featured-card, .skill-card, .contact-info'
+);
+
+// FIX: observer was missing — the querySelectorAll string was broken and
+// the new IntersectionObserver() call was cut off entirely
+const observer = new IntersectionObserver((entries) => {
   entries.forEach(en => {
     if (en.isIntersecting) {
       en.target.style.opacity = '1';
@@ -167,3 +172,64 @@ revealEls.forEach(el => {
   el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
   observer.observe(el);
 });
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// LIGHTBOX FUNCTIONALITY
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxClose = document.querySelector('.lightbox-close');
+const lightboxCaption = document.querySelector('.lightbox-caption');
+const lightboxNext = document.querySelector('.lightbox-next');
+const lightboxPrev = document.querySelector('.lightbox-prev');
+
+if (lightbox) {
+  const galleryImages = Array.from(document.querySelectorAll('.showcase-images-grid .description-image'));
+  let currentIndex = 0;
+
+  function updateImage(index) {
+    currentIndex = (index + galleryImages.length) % galleryImages.length;
+    lightboxImg.src = galleryImages[currentIndex].src;
+    if (lightboxCaption) lightboxCaption.textContent = galleryImages[currentIndex].alt;
+  }
+
+  galleryImages.forEach((img, index) => {
+    img.addEventListener('click', () => {
+      lightbox.classList.add('active');
+      updateImage(index);
+    });
+  });
+
+  if (lightboxNext) {
+    lightboxNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      updateImage(currentIndex + 1);
+    });
+  }
+
+  if (lightboxPrev) {
+    lightboxPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      updateImage(currentIndex - 1);
+    });
+  }
+
+  lightboxClose.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.classList.remove('active');
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+    if (e.key === 'ArrowRight') updateImage(currentIndex + 1);
+    if (e.key === 'ArrowLeft') updateImage(currentIndex - 1);
+  });
+}
