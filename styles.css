@@ -351,6 +351,39 @@
       text-transform: uppercase;
     }
 
+    .skill-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+    .skill-card {
+      background: rgba(10,22,40,0.8);
+      border: 1px solid rgba(0,212,255,0.12);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 0 20px rgba(0,212,255,0.08);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .skill-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0,212,255,0.25);
+    }
+    .skill-card h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: var(--cyan);
+      margin-bottom: 0.7rem;
+      text-transform: uppercase;
+    }
+    .skill-card p {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
     /* ─── PROJECTS ─── */
     .projects-section {
       padding: 7rem 2rem;
@@ -527,6 +560,55 @@
     .footer-coords {
       font-size: 0.65rem; color: rgba(0,212,255,0.3);
       font-family: 'Orbitron', monospace; letter-spacing: 0.08em;
+    }
+
+    /* ─── SKILLS DESCRIPTION ─── */
+    .skills-description {
+      padding: 5rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+    }
+    .skills-description h2 {
+      width: 100%;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .skills-description h2::before {
+      content: '// ';
+      opacity: 0.5;
+    }
+    .skills-description .description {
+      flex: 1 1 360px;
+      max-width: 520px;
+      font-size: 0.95rem;
+      color: var(--text-body);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .skills-description .image-card {
+      flex: 1 1 320px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .skills-description .description-image {
+      width: 100%;
+      max-width: 460px;
+      border-radius: 18px;
+      object-fit: cover;
+      box-shadow: 0 0 40px rgba(0, 212, 255, 0.15);
+      border: 1px solid rgba(0, 212, 255, 0.1);
     }
 
     /* ─── SCROLL INDICATOR ─── */
