@@ -150,7 +150,7 @@ document.querySelectorAll('.nav-links a').forEach(a => {
 // SCROLL REVEAL EFFECTS
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const revealEls = document.querySelectorAll('.project-card, .about-text, .profile-frame');
+const revealEls = document.querySelectorAll('.project-card, .about-text, .profile-frame, .certificates-achievements');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(en => {
     if (en.isIntersecting) {

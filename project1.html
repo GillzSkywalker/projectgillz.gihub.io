@@ -8,14 +8,15 @@
   <style>
     /* ─── TOKENS ─── */
     :root {
-      --void:        #020409;
-      --deep:        #050d1a;
-      --nebula-blue: #0a1628;
+     
+      --void: #0d1426;
+      --deep: #0f1830;
+      --nebula-blue: #132440;
       --star-white:  #e8f4ff;
-      --cyan:        #00d4ff;
+      --cyan:        #12ea65;
       --cyan-dim:    rgba(0,212,255,0.12);
       --cyan-glow:   rgba(0,212,255,0.4);
-      --magenta:     #ff2d78;
+      --magenta:     #2a0a4a;
       --mag-dim:     rgba(255,45,120,0.12);
       --gold:        #ffd166;
       --text-body:   #a8c8e8;
@@ -449,9 +450,69 @@
     .btn-primary:hover { filter:brightness(1.2); transform:translateY(-2px); box-shadow:0 0 50px rgba(0,212,255,.45); }
 
     /* ─── FOOTER ─── */
+    /* ─── SKILLS SECTION ─── */
+    .skills-section {
+      padding: 7rem 2rem;
+      max-width: 1300px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .skill-item {
+      background: var(--card-bg);
+      border: 1px solid rgba(0,212,255,0.2);
+      padding: 2rem;
+      border-radius: 8px;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+
+    .skill-item:hover {
+      border-color: rgba(0,212,255,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,212,255,0.08);
+    }
+
+    .skill-item h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--star-white);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .skill-item h3::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan);
+    }
+
+    .skill-item p {
+      color: var(--text-body);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* ─── FOOTER ─── */
     footer {
       position:relative; z-index:2;
-      border-top:1px solid rgba(0,212,255,.08);
+      border-top:1px solid rgba(0,212,255,.12);
       padding:2rem;
     }
     .footer-inner {
@@ -752,19 +813,26 @@
 
 
   <!-- Skills sections-->
-   <section>
-    <div class="section-divider"><span>Sector 04 // Skills Matrix</span></div>
-        <div class="section-wrap about-strip">
-            <p>
-                A visual matrix of your skills and proficiencies. This can be a grid or radar chart showing your expertise in various tools, languages, and disciplines.
-                Use this space to highlight your strengths and areas of focus.
-            </p>
-            <!-- Placeholder for skills matrix visualization -->
-            <div style="width:100%; height:300px; background:var(--deep); display:flex; align-items:center; justify-content:center; color:rgba(168,200,232,.35);">
-                Skills Matrix Visualization Here
-            </div>
-        </div>
-   </section>
+  <div class="section-divider"><span>Sector 04 // Skills Matrix</span></div>
+
+  <section class="skills-section">
+    <div class="skills-grid">
+      <div class="skill-item">
+        <h3>Front-End Development</h3>
+        <p>My journey in web development started with this first project. I mastered HTML and CSS to create the structure and visual design, then enhanced it with JavaScript for interactivity. This foundational project taught me the importance of clean code, responsive design, and user-friendly navigation—giving me the confidence to tackle more complex web applications.</p>
+      </div>
+
+      <div class="skill-item">
+        <h3>Creative Coding</h3>
+        <p>Leveraging p5.js, I created generative art and interactive games like Space Invaders. This blend of code and creativity pushed my understanding of algorithms, real-time rendering, and artistic expression. These experiments demonstrated how programming can be a powerful medium for visual storytelling and interactive experiences.</p>
+      </div>
+
+      <div class="skill-item">
+        <h3>Digital Storytelling</h3>
+        <p>The Swatch Bullet Brand commercial project showcased my ability to combine film production, visual design, and narrative craft. Working with camera equipment and motion graphics, I created a cohesive brand story that merged technical skills with creative storytelling—proving that great narratives need strong visual execution.</p>
+      </div>
+    </div>
+  </section>
 
 
 <!-- ─── FOOTER ─── -->

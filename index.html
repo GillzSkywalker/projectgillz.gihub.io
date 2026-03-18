@@ -9,19 +9,19 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     :root {
-      --void: #020409;
-      --deep: #050d1a;
-      --nebula-blue: #0a1628;
+      --void: #0d1426;
+      --deep: #0f1830;
+      --nebula-blue: #132440;
       --star-white: #e8f4ff;
-      --cyan: #00d4ff;
+      --cyan: #12ea65;
       --cyan-dim: rgba(0,212,255,0.15);
       --cyan-glow: rgba(0,212,255,0.4);
-      --magenta: #ff2d78;
+      --magenta: #2a0a4a;
       --mag-dim: rgba(255,45,120,0.15);
       --gold: #ffd166;
-      --text-body: #a8c8e8;
-      --grid-line: rgba(0,212,255,0.06);
-      --card-bg: rgba(10,22,40,0.8);
+      --text-body: #c8d8e8; /* Increased contrast for better readability */
+      --grid-line: rgba(0,212,255,0.08); /* Slightly more visible grid */
+      --card-bg: rgba(10,22,40,0.85); /* Slightly more opaque for better text contrast */
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -82,7 +82,7 @@
       z-index: 1000;
       backdrop-filter: blur(16px);
       background: rgba(2,4,9,0.7);
-      border-bottom: 1px solid rgba(0,212,255,0.12);
+      border-bottom: 1px solid rgba(0,212,255,0.2);
     }
 
     .navbar {
@@ -276,7 +276,7 @@
       max-width: 1200px; margin: 0 auto;
       display: grid;
       grid-template-columns: 300px 1fr;
-      gap: 5rem; align-items: center;
+      gap: 5rem; align-items: start;
     }
 
     .profile-frame {
@@ -301,45 +301,19 @@
       z-index: -1;
     }
 
-    .scan-line {
-      position: absolute; width: 100%; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-      opacity: 0;
-      animation: scan 4s ease-in-out 2s infinite;
-      pointer-events: none;
+    .about-text {
+      display: flex; flex-direction: column; gap: 2.5rem;
     }
-    @keyframes scan {
-      0% { top: 0; opacity: 0; }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.6; }
-      100% { top: 100%; opacity: 0; }
-    }
+    .about-text > * + * { margin-top: 2.5rem; }
 
-    .profile-label {
-      position: absolute; bottom: -1rem; right: -1rem;
-      font-family: 'Orbitron', monospace;
-      font-size: 0.55rem; letter-spacing: 0.2em;
-      color: var(--magenta);
-      background: var(--deep);
-      border: 1px solid rgba(255,45,120,0.3);
-      padding: 0.3rem 0.8rem;
-    }
-
-    .about-text h2 {
+    .about-text h2, .about-text h3 {
       font-family: 'Orbitron', monospace;
       font-size: 0.6rem; letter-spacing: 0.4em;
       color: var(--cyan); text-transform: uppercase;
-      margin-bottom: 0.8rem;
+      margin-bottom: 1rem;
     }
-    .about-text h2::before { content: '// '; opacity: 0.5; }
-
-    .about-name {
-      font-family: 'Orbitron', monospace;
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 700; color: var(--star-white);
-      margin-bottom: 1.5rem;
-      text-shadow: 0 0 30px rgba(0,212,255,0.2);
-    }
+    .about-text h2::before, .about-text h3::before { content: '// '; opacity: 0.5; }
+    .about-text h3 { font-size: 0.75rem; }
 
     .about-text p {
       color: var(--text-body);
@@ -349,16 +323,74 @@
     }
 
     .skills-row {
-      display: flex; flex-wrap: wrap; gap: 0.6rem;
-      margin-top: 2rem;
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+      justify-content: flex-start;
     }
     .skill-chip {
       font-family: 'Orbitron', monospace;
       font-size: 0.55rem; letter-spacing: 0.12em;
-      padding: 0.35rem 0.8rem;
-      border: 1px solid rgba(255,209,102,0.35);
-      color: var(--gold); background: rgba(255,209,102,0.07);
+      padding: 0.4rem 0.9rem;
+      border: 1px solid rgba(255,209,102,0.4);
+      color: var(--gold); background: rgba(255,209,102,0.08);
+      text-transform: uppercase; border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* New layout sections */
+    .about-subsection {
+      display: flex; flex-direction: column; gap: 1.5rem;
+    }
+    .events-images {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem; margin-top: 1rem;
+    }
+    .events-images img {
+      width: 100%; max-height: 200px; height: auto; object-fit: cover; border-radius: 8px;
+      border: 1px solid rgba(0,212,255,0.2);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .events-images img:hover {
+      border-color: var(--cyan); transform: scale(1.02);
+    }
+    figure { margin: 0; }
+    figcaption { font-style: italic; opacity: 0.9; margin-top: 0.5rem; }
+
+    .skill-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .skill-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0,212,255,0.2);
+      padding: 1.75rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    .skill-card:hover {
+      border-color: rgba(0,212,255,0.4);
+      transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,212,255,0.1);
+    }
+    .skill-card h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.95rem;
+      color: var(--cyan);
+      margin-bottom: 1rem;
       text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .skill-card p {
+      color: var(--text-body);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .about { gap: 3rem; text-align: center; }
+      .skills-row { justify-content: center; }
+      .events-images { grid-template-columns: 1fr; }
+      .profile-frame { max-width: 280px; margin: 0 auto; }
     }
 
     /* ─── PROJECTS ─── */
@@ -387,11 +419,86 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .featured-wrapper {
+      margin-top: 3rem;
+    }
+
+    .featured-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      color: rgba(0,212,255,0.4);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .featured-projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .featured-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .featured-card:hover {
+      border-color: rgba(0,212,255,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,212,255,0.1);
+    }
+
+    .featured-image {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-bottom: 1px solid rgba(0,212,255,0.15);
+    }
+
+    .featured-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .featured-card h4 {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .featured-card p {
+      color: var(--text-body);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+      flex: 1;
+    }
+
+    .featured-card .card-link {
+      align-self: flex-start;
+      margin-top: auto;
     }
 
     .project-card {
       background: var(--card-bg);
-      border: 1px solid rgba(0,212,255,0.12);
+      border: 1px solid rgba(0,212,255,0.2);
       padding: 2rem;
       position: relative;
       transition: border-color 0.3s, transform 0.3s;
@@ -469,7 +576,7 @@
     input, textarea {
       width: 100%;
       background: rgba(10,22,40,0.6);
-      border: 1px solid rgba(0,212,255,0.15);
+      border: 1px solid rgba(0,212,255,0.25);
       color: var(--star-white);
       font-family: 'Exo 2', sans-serif;
       font-size: 0.9rem; font-weight: 300;
@@ -602,10 +709,104 @@
       transform: scale(1.2);
     }
 
-    /* ─── FOOTER ─── */
+    /* ─── SKILLS DESCRIPTION ─── */
+    .skills-description {
+      padding: 7rem 2rem;
+      max-width: 1200px; margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .skills-description h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.6rem; letter-spacing: 0.4em;
+      color: var(--cyan); text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .skills-description h2::before { content: '// '; opacity: 0.5; }
+
+    .skills-description > div:first-of-type {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 3rem;
+      align-items: center;
+      margin-bottom: 4rem;
+    }
+
+    .description p {
+      color: var(--text-body);
+      font-size: 0.95rem; line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .image-card {
+      position: relative;
+    }
+    .description-image {
+      width: 100%; height: auto;
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+    .description-image:hover {
+      border-color: rgba(0,212,255,0.4);
+    }
+
+    /* ─── SHOWCASE IMAGES SECTION ─── */
+    .showcase-images,
+    .showcase-images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    .certificates-achievements {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .certificates-achievements .big-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+    }
+
+    .showcase-images .description-image,
+    .showcase-images-grid .description-image {
+      width: 100%;
+      aspect-ratio: 16 / 12;
+      object-fit: cover;
+      border: 2px solid rgba(0,212,255,0.15);
+      border-radius: 0;
+      clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .showcase-images .description-image::before,
+    .showcase-images-grid .description-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,212,255,0.1) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .showcase-images .description-image:hover,
+    .showcase-images-grid .description-image:hover {
+      border-color: rgba(0,212,255,0.5);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 16px 50px rgba(0,212,255,0.15), inset 0 0 20px rgba(0,212,255,0.05);
+    }
+
     footer {
       position: relative; z-index: 2;
-      border-top: 1px solid rgba(0,212,255,0.08);
+      border-top: 1px solid rgba(0,212,255,0.15);
       padding: 2rem;
       text-align: center;
     }
@@ -680,6 +881,22 @@
       .orbit-ring-2 { width: 420px; height: 420px; margin-top: -210px; margin-left: -210px; }
 
       .footer-inner { flex-direction: column; text-align: center; }
+
+      .skills-description > div:first-of-type {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .showcase-images,
+      .showcase-images-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .showcase-images .description-image,
+      .showcase-images-grid .description-image {
+        aspect-ratio: 16 / 12;
+      }
     }
   </style>
 </head>
@@ -700,6 +917,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
+      <li><a href="experience.html">Experience</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -713,7 +931,7 @@
 
     <p class="hero-eyebrow">Transmission Incoming // Signal Acquired</p>
     <h1>Gillian<br>Alindayu</h1>
-    <p class="hero-sub">Professional front-end developer, graphic designer & UX architect navigating the digital cosmos.</p>
+    <p class="hero-sub">Graphic Designer and front-end developer. </p>
     <div class="hero-tags">
       <span class="tag">Front-End Dev</span>
       <span class="tag">software developer</span>
@@ -736,77 +954,92 @@
 
   <section id="about" class="about">
     <div class="profile-frame">
-      <img src="uxdesign1.jpg" alt="Gillian Alindayu" class="profile-pic">
-      <div class="scan-line"></div>
-      <div class="profile-label">ID: Gillian Alindayu</div>
+      <img src="uxdesign1.jpg" alt="Gillian Alindayu - Profile photo" class="profile-pic">
     </div>
     <div class="about-text">
-      <h2>About Me</h2>
-      <p class="about-name">Gillian Alindayu</p>
-      <p>
-        Hi, I'm Gillian — a passionate front-end developer with a knack for creating visually stunning and user-friendly websites. With a background in graphic design and UX, I bring a unique blend of creativity and technical expertise to every project I work on, prototyping and designing interfaces but also developing them into code.
-        Beyond coding, I learned Python first, I started learning web development in 2023. I find it simple but at the same time it was difficult due to some time management and also learning to trust the process.
-      </p>
-      <p>
-        I specialize in HTML, CSS, JavaScript, and various front-end frameworks. My goal is to craft seamless digital experiences that not only look great but also function flawlessly. Whether it's designing a sleek website or developing an intuitive UI, I'm dedicated to exceeding expectations.
-      </p>
-      <p>
-        Beyond development, I have a passion for storytelling — weaving narratives into the artwork I create, bridging the gap between technology and imagination.
-      </p>
-
-      <div class="about-skills">
-        <h2>Web development and graphic designer</h2>
+      <div class="about-intro">
+        <h2>About Me</h2>
         <p>
-          I have experience in web development and graphic design and dedicated with creativity. Making it easy to balance art and coding. I have a strong foundation in HTML, CSS, JavaScript, and various front-end frameworks. I am passionate about creating visually stunning and user-friendly websites that provide seamless digital experiences. With my background in graphic design, I bring a unique blend of creativity and technical expertise to every project I work on, ensuring that the final product not only looks great but also functions flawlessly.
-
-        
+          Hi, I'm Gillian Alindayu, a passionate front-end developer with a knack for creating visually stunning and user-friendly websites. With a background in graphic design and UX, I bring a unique blend of creativity and technical expertise to every project.
         </p>
-
-        <h2>Graphic design</h2>
         <p>
-
+          I started with Python in 2023 and transitioned to web development, finding it both simple and challenging due to time management and the learning process. I specialize in HTML, CSS, JavaScript, and various front-end frameworks, crafting seamless digital experiences that exceed expectations.
+        </p>
+        <p>
+          Beyond development, I have a passion for storytelling — weaving narratives into the artwork I create, bridging the gap between technology and imagination.
         </p>
       </div>
 
-      <h2>Skills</h2>
-      <div class="skills-row">
-        <span class="skill-chip">HTML</span>
-        <span class="skill-chip">CSS</span>
-        <span class="skill-chip">JavaScript</span>
-        <span class="skill-chip">Python</span>
-        <span class="skill-chip">Figma</span>
-        <span class="skill-chip">Adobe Photoshop</span>
+      <div class="about-subsection">
+        <h2>Skills</h2>
+        <div class="skills-row">
+          <span class="skill-chip">HTML</span>
+          <span class="skill-chip">CSS</span>
+          <span class="skill-chip">JavaScript</span>
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">Figma</span>
+          <span class="skill-chip">Adobe Photoshop</span>
+        </div>
       </div>
 
-      <div class="skill-cards">
-        <article class="skill-card">
-          <h3>Front-End Development</h3>
-          <p>I have dedicated art and code balance to enhance my skills for prototype and actual website. I
-            utilized HTML, CSS, and Javascript to build responsive and interactive websites with frameworks. 
-          </p>
-        </article>
-        <article class="skill-card">
-          <h3>UX and graphic designing</h3>
-          <p>
-            I learned how to do UX design and graphic design since 2021. I start using canva to create something 
-            like music album cover and as well for sponsorship. I also use Figma for prototyping and wireframing for my projects to make a software tool and architeture. 
-          </p>
-        </article>
-        <article class="skill-card">
-          <h3>Tools and workflow</h3>
-          <p>I used Github for version control and collaboration, I used Github as a platform to host my website and code references. It is like 
-            I created a launcher for my projects and also a portfolio for my work. I also use Figma for prototyping and wireframing for my projects to make a software tool and architeture.
-          </p>
-        </article>
+      <section class="about-subsection languages-section" aria-labelledby="languages-heading">
+        <h3 id="languages-heading">Languages</h3>
+        <div class="skills-row">
+          <span class="skill-chip">English</span>
+          <span class="skill-chip">Tagalog</span>
+          <span class="skill-chip">Filipino</span>
+          <span class="skill-chip">Japanese</span>
+        </div>
+      </section>
+
+      <section class="about-subsection education-section" aria-labelledby="education-heading">
+        <h3 id="education-heading">Education</h3>
+        <figure>
+          <span class="skill-chip">Bachelor of Science - Creative Computing</span>
+          <figcaption>Currently in 3rd year at Bath Spa University Academic Centre RAK, UAE. Coursework includes web development, graphic design, UX design, and creative coding.</figcaption>
+        </figure>
+      </section>
+
+      <section class="about-subsection events-section" aria-labelledby="events-heading">
+        <h3 id="events-heading">Events</h3>
+        <figure>
+          <span class="skill-chip">GDG Event: AI Battle - Dream vs Reality</span>
+          <p>I attended the GDG seminar at university, exploring AI's future impact on our lives. A fascinating and informative discussion.</p>
+          <div class="events-images">
+            <img src="gdg.png" alt="GDG AI Battle event photo">
+            <img src="event.png" alt="GDG AI Battle event photo 2">
+
+            <img src="certificate.png" alt="GDG event certificate of attendance">
+          </div>
+        </figure>
+      </section>
+
+      <div class="about-subsection">
+        <div class="skill-cards">
+          <article class="skill-card">
+            <h3>Front-End Development</h3>
+            <p>I balance art and code to create responsive, interactive websites. I utilize HTML, CSS, and JavaScript with modern frameworks to build engaging user experiences.</p>
+          </article>
+          <article class="skill-card">
+            <h3>UX & Graphic Design</h3>
+            <p>Since 2021, I've been creating visual designs using Canva for branding and sponsorship materials. I use Figma for prototyping, wireframing, and designing software tools and architectures.</p>
+          </article>
+          <article class="skill-card">
+            <h3>Tools & Workflow</h3>
+            <p>I leverage GitHub for version control, collaboration, and hosting my projects and portfolio. This platform serves as a central hub for my code repositories and project showcases.</p>
+          </article>
+        </div>
       </div>
 
-      <h2>Hobbies</h2>
-      <div class="skills-row">
-        <span class="skill-chip">Traveling</span>
-        <span class="skill-chip">Gaming</span>
-        <span class="skill-chip">Arts</span>
-        <span class="skill-chip">Comic Writing</span>
-        <span class="skill-chip">Digital Storytelling</span>
+      <div class="about-subsection hobbies-section">
+        <h2>Hobbies</h2>
+        <div class="skills-row">
+          <span class="skill-chip">Traveling</span>
+          <span class="skill-chip">Gaming</span>
+          <span class="skill-chip">Arts</span>
+          <span class="skill-chip">Comic Writing</span>
+          <span class="skill-chip">Digital Storytelling</span>
+        </div>
       </div>
     </div>
   </section>
@@ -835,28 +1068,72 @@
       <div class="project-card">
         <span class="card-num">03</span>
         <h3>BSc Creative Computing - Year 3</h3>
-
         <p>Almost the same thing from the 2nd year projects, like websites more functional and machine learning that focused on experiments and some GUI work.</p>
         <a href="project3.html" class="card-link">View Project</a>
       </div>
     </div>
+
+    <div class="featured-wrapper">
+      <h3 class="featured-label">Featured websites i developed</h3>
+      <div class="featured-projects">
+        <div class="featured-card">
+          <img src="tomorrow'sweb.png" alt="InkBit - The Smartest collection" class="featured-image">
+          <div class="featured-content">
+            <h4>InkBit - The Smartest collection</h4>
+            <p>InkBit is a collection tracker for your favorite manga and comic books. It helps you keep track of your reading progress.</p>
+            <a href="https://gillzskywalker.github.io/inkbit007.github.io-/" class="card-link" target="_blank">View Project</a>
+          </div>
+        </div>
+        <div class="featured-card">
+          <img src="starwarssite.png" alt="Star Wars Website" class="featured-image">
+          <div class="featured-content">
+            <h4>Star Wars Website</h4>
+            <p>A Star Wars-themed website with responsive design, interactive elements, and visually appealing layout that captures the essence of the Star Wars universe.</p>
+            <a href="https://gillzskywalker.github.io/GillianSkywalker.github.io/" class="card-link" target="_blank">View Project</a>
+          </div>
+        </div>
+        <div class="featured-card">
+          <img src="Screenshot 2026-03-04 134223.png" alt="Gillian's Inky works - Art Gallery" class="featured-image">
+          <div class="featured-content">
+            <h4>Gillian's Inky works - Art Gallery</h4>
+            <p>This website showcases my art gallery website and right here are the compilation of the artworks i made.</p>
+            <a href="https://gillianalindayu.github.io/" class="card-link" target="_blank">View Project</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
   </section>
 
   <section class="skills-description">
     <h2>Skills and achievements</h2>
 
-    <div class="description"> 
-      <p> 
-        I have a strong foundation in HTML, CSS, JavaScript. I am passionate yet i am not quite there yet, I am still 
-        a learner to code amd design to improve my skills and also able to be creative. Learning python is my very first programming language 
-        and a good start before doing something and creating something with web development, and mobile app development. Yet I have different skills like python 
-        which is a good start for development as well as game development for a good experience in coding also in designing. 
-      </p>
+    <div>
+      <div class="description"> 
+        <p> 
+          I have a strong foundation in HTML, CSS, JavaScript. I am passionate yet i am not quite there yet, I am still 
+          a learner to code and design to improve my skills and also able to be creative. Learning python is my very first programming language 
+          and a good start before doing something and creating something with web development, and mobile app development. Yet I have different skills like python 
+          which is a good start for development as well as game development for a good experience in coding also in designing. 
+        </p>
+      </div>
+      <div class="image-card">
+        <img src="graphic.png" alt="Skills and Achievements" class="description-image">
+      </div>
     </div>
-    <div class="image-card">
-      <img src="graphic.png" alt="Skills and Achievements" class="description-image">
 
+    <div class="certificates-achievements">
+      <p class="big-title">My Creative Works.</p>
+      <div class="showcase-images-grid">
+        <img src="pythonCertifcate.png" alt="Python Certificate" class="description-image">
+        <img src="certificate.png" alt="GDG Event Certificate" class="description-image">
+        <img src="kaggle.png" alt="Kaggle Certificate" class="description-image">
+        <img src="sololearn.png" alt="SoloLearn Certificate" class="description-image">
+      </div>
     </div>
+
+    <div class="linkedin-achievements"></div>
   </section>
 
   <!-- CONTACT -->
@@ -867,7 +1144,7 @@
       <h2>Contact</h2>
       <p class="big-title">Open Channel</p>
     </div>
-    <p class="contact-intro">Get in touch with me through the following channels:</p>
+    <p class="contact-intro">Get in touch with me for such interaction. </p>
 
     <div class="contact-info">
       <h3>Contacts</h3>
@@ -875,7 +1152,7 @@
       
       <h4>General information</h4>
       <p><strong>Email:</strong> alindayu.gillianmarie2020@gmail.com</p>
-      <p><strong>Phone:</strong> +971 50 4509 465</p>
+      <p><strong>Phone:</strong> +971 50 450 9465</p>
       <p><strong>Location:</strong> Sharjah, UAE.</p>
 
       <h4>Socials</h4>
