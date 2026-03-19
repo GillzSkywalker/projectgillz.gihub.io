@@ -104,6 +104,14 @@
     }
     .nav-links a:hover { color: var(--cyan); }
 
+    .nav-toggle {
+      display: none;
+      background: none; border: 1px solid var(--cyan);
+      color: var(--cyan); padding: 0.3rem 0.6rem;
+      font-size: 1.1rem; cursor: pointer;
+      font-family: 'Orbitron', monospace;
+    }
+
     /* ── SECTION DIVIDER ── */
     .section-divider {
       display: flex; align-items: center; gap: 1rem;
@@ -266,14 +274,29 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      .nav-links { gap: 1.5rem; }
-      .nav-links a { font-size: 0.65rem; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none; position: absolute;
+        top: 64px; left: 0; right: 0;
+        background: rgba(2,4,9,0.97);
+        border-bottom: 1px solid rgba(0,212,255,0.15);
+        flex-direction: column; align-items: center;
+        gap: 0; padding: 1.5rem 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; text-align: center; padding: 0.8rem 0; }
+
       .experience-section { padding: 4rem 1.5rem; }
       .timeline::before { display: none; }
       .experience-item { padding-left: 0; margin-bottom: 2rem; }
       .experience-item::before { display: none; }
       .experience-card { padding: 1.5rem; }
       .footer-inner { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .section-header .big-title { font-size: 2rem; }
+      .experience-card h3 { font-size: 0.95rem; }
+      .skill-tag { font-size: 0.65rem; padding: 0.3rem 0.7rem; }
     }
   </style>
 </head>
@@ -287,8 +310,9 @@
   <!-- NAV -->
   <header>
     <nav class="navbar">
-      <div class="brand">GillzSkywalker</div>
-      <ul class="nav-links">
+      <a href="index.html" class="brand">GillzSkywalker</a>
+      <button class="nav-toggle" id="navToggle">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
         <li><a href="index.html#about">About</a></li>
         <li><a href="index.html#projects">Projects</a></li>
         <li><a href="experience.html">Experience</a></li>
@@ -412,6 +436,13 @@
         ring.style.top  = e.clientY + 'px';
       }, 80);
     });
+
+  // ── NAV TOGGLE ──
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  if(navToggle && navLinks) {
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  }
 
     // ── STARFIELD ──
     const canvas = document.getElementById('starfield');
