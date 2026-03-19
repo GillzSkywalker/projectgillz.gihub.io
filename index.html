@@ -294,14 +294,14 @@
     .about-text h3::before { content:'// '; opacity:.5; }
 
     .about-text p {
-      color:var(--text-body); font-size:1rem;
+      color:var(--text-body); font-size:1.3rem;
       line-height:1.8; font-weight:300; margin-bottom:1rem;
     }
 
     .skills-row { display:flex; flex-wrap:wrap; gap:.75rem; }
     .skill-chip {
       font-family:'Orbitron', monospace;
-      font-size:.65rem; letter-spacing:.12em;
+      font-size:.75rem; letter-spacing:.12em;
       padding:.4rem .9rem;
       border:1px solid rgba(255,209,102,.4);
       color:var(--gold); background:rgba(255,209,102,.08);
@@ -346,7 +346,7 @@
       margin-bottom:1rem; text-transform:uppercase; letter-spacing:.1em;
     }
     .skill-card h3::before { content:none; }
-    .skill-card p { color:var(--text-body); font-size:.9rem; line-height:1.7; }
+    .skill-card p { color:var(--text-body); font-size:1.0rem; line-height:1.7; }
 
     /* ─── PROJECTS ─── */
     .projects-section {
@@ -401,16 +401,16 @@
 
     .project-card h3 {
       font-family:'Orbitron', monospace;
-      font-size:1rem; font-weight:600;
+      font-size:1.1rem; font-weight:600;
       letter-spacing:.1em; text-transform:uppercase;
       color:var(--star-white); margin-bottom:.8rem;
     }
-    .project-card p { font-size:.9rem; color:var(--text-body); line-height:1.7; font-weight:300; }
+    .project-card p { font-size: 1.05rem; color:var(--text-body); line-height:1.7; font-weight:300; }
 
     .card-link {
       display:inline-block; margin-top:1.5rem;
       font-family:'Orbitron', monospace;
-      font-size:.6rem; letter-spacing:.15em;
+      font-size:1.0rem; letter-spacing:.15em;
       color:var(--cyan); text-decoration:none; text-transform:uppercase;
       border-bottom:1px solid transparent; transition:border-color .2s;
     }
@@ -453,7 +453,7 @@
     .featured-content { padding:1.5rem; flex:1; display:flex; flex-direction:column; }
     .featured-card h4 {
       font-family:'Orbitron', monospace;
-      font-size:.9rem; font-weight:600;
+      font-size:1.5rem; font-weight:600;
       color:var(--cyan); margin-bottom:.8rem;
       text-transform:uppercase; letter-spacing:.1em;
     }
@@ -468,12 +468,12 @@
     }
     .skills-description > h2 {
       font-family:'Orbitron', monospace;
-      font-size:.85rem;           /* was .7rem */
+      font-size: 1.5rem;           /* was .7rem */
       letter-spacing:.3em;
       color:var(--cyan); text-transform:uppercase; margin-bottom:2.5rem;
     }
     .skills-description > h2::before { content:'// '; opacity:.5; }
-
+    
     .skills-top-grid {
       display:grid;
       grid-template-columns:1fr 300px;
@@ -548,7 +548,26 @@
     }
     .contact-info h4::before { content:'// '; opacity:.5; }
     .contact-info a { color:var(--cyan); text-decoration:none; border-bottom:1px solid transparent; transition:border-color .2s; }
-    .contact-info a:hover { border-color:var(--cyan); }
+    .contact-info a:hover { border-color:var(--cyan); 
+    }
+    .contact-info a::after { content:' →'; }
+
+    /* ─── FOOTER ─── */
+    .footer-section {
+      padding:7rem 2rem;
+      max-width:1300px; margin:0 auto;
+      position:relative; z-index:2;
+    }
+    .footer-section .footer-inner {
+      display:flex; justify-content:space-between;
+      align-items:center; flex-wrap:wrap; gap:1rem;
+    }
+    .footer-section .footer-brand {
+      font-family:'Orbitron', monospace;
+      font-size:.9rem; font-weight:900; letter-spacing:.3em;
+      color:var(--cyan); text-shadow:0 0 15px var(--cyan-glow);
+    }
+    
 
     .social-links {
       display:flex; gap:1.5rem;
@@ -731,7 +750,7 @@
         <h2>About Me</h2>
         <p>Hi, I'm Gillian Alindayu, a passionate front-end developer with a knack for creating visually stunning and user-friendly websites. With a background in graphic design and UX, I bring a unique blend of creativity and technical expertise to every project.</p>
         <p>I started with Python in 2023 and transitioned to web development, finding it both simple and challenging due to time management and the learning process. I specialize in HTML, CSS, JavaScript, and various front-end frameworks, crafting seamless digital experiences that exceed expectations.</p>
-        <p>Beyond development, I have a passion for storytelling — weaving narratives into the artwork I create, bridging the gap between technology and imagination.</p>
+        <p>Beyond development, I have a passion for storytelling weaving narratives into the artwork I create, bridging the gap between technology and imagination.</p>
       </div>
 
       <div class="about-subsection">
